@@ -1,0 +1,31 @@
+---
+title: "ProyectoTD2024"
+output: html_document
+date: "2024-03-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Cargamos los nombres de cada tiket (guardados en la carpeta data)
+data <- list.files(path = "data/", pattern = "\\.txt$", full.names = T)
+
+# Inicializamos una lista para almacenar los tikets de cada archivo
+tikets <- list()
+
+# Leemos cada archivo y almacenamos los tikets en la lista
+for (archivo in data) {
+  # Extraemos el nombre del archivo del tiket sin la ruta
+  nombre_tiket <- basename(archivo)
+  
+  # Leemos el archivo y lo almacenamos en la lista
+  tiket <- read.delim(archivo, header = TRUE)
+  
+  # Agregamos los tikets a la lista con el nombre del archivo como clave
+  tikets[[nombre_tiket]] <- tiket
+}
+```
+
+
