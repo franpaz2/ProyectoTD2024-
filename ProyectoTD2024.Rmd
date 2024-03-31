@@ -1,7 +1,7 @@
 ---
 title: "ProyectoTD2024"
 output: html_document
-author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez"
+author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes"
 date: "2024-03-30"
 ---
 
@@ -63,5 +63,15 @@ for (tickets in tickets) {
 }
 
 ```
- 
 
+# Preguntas
+
+Ahora que tenemos los tickets cargados correctamente en un data frame, nos planteamos las preguntas que queremos rresponder mediante el análisis exploratorio.
+
+1.  ¿cuáles son los productos más comprados?
+
+2.  ¿A qué hora se realizan más compras?
+
+3.  ¿Qué método de pago es el más popular?
+
+4.  ¿Cuáles son los productos menos comprados?
