@@ -6,13 +6,19 @@ date: "2024-03-30"
 ---
 
 ```{r setup, include=FALSE}
+#Cargamos las librerias necesarias
 knitr::opts_chunk$set(echo = TRUE)
 library(readr)
+library(dplyr)
+library(rlist)
 ```
 
 ```{r}
 #Cargamos los nombres de cada tiket (guardados en la carpeta data)
 files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
+
+#Creamos una lista que contendrá cada ticket.
+tickets <- list()
 
 #Asignamos las líneas de los archivos .txt
 for (file in files) {
@@ -23,25 +29,35 @@ for (file in files) {
   telefono <- linea[4]
   fecha <- linea[5]
   factura <- linea[6]
-  indice <- grep("TOTAL", linea)
-  productos <- linea[8:indice - 1]
-  precio <- linea[indice]
+  indiceinicio <- grep("DESCRIPCIÓN", linea)
+  indicefinal <- grep("TOTAL", linea)
+  productos <- linea[indiceinicio + 1:indicefinal - 1]
   #Falta IVA
-  tarjetabancaria <- linea[indice + 7]
-}
-
+  tarjetabancaria <- linea[indicefinal + 7]
+  
 #Creamos un data frame con los datos asignados
-datos <- data.frame(
-  Supermercado <- supermercado,
-  Dirección <- direccion,
-  Ciudad <- ciudad,
-  Teléfono <- telefono,
-  Fecha <- fecha,
-  Factura <- factura,
-  Productos <- productos, #Falta distinguir entre los distintos productos porque tienen distintos formatos
-  Precio <- precio,
+  datos <- data.frame(
+    Supermercado <- supermercado,#Falta distinguir entre los distintos productos porque tienen distintos formatos
+    Dirección <- direccion,
+    Ciudad <- ciudad,
+    Telefono <- telefono,
+    Fecha <- fecha,
+    Factura <- factura,
+    stringsAsFactors = FALSE
   #Falta asignar el IVA
 )
+  #Le asigno cada ticket a cada elemento de la lista
+  tickets <- list.append(tickets, datos)
+}
+
+#Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
+datoscompletos <- data.frame()
+
+#Le añadimos a cada columna del data frame un ticket.
+for (ticket in tickets) {
+  datoscompletos <- rbind(datoscompletos,ticket)
+}
+
 ```
  
 
