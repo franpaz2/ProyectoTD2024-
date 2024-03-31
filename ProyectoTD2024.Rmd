@@ -14,6 +14,7 @@ library(readr)
 #Cargamos los nombres de cada tiket (guardados en la carpeta data)
 files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
 
+#Asignamos las líneas de los archivos .txt
 for (file in files) {
   linea <- read_lines(file, locale = locale(encoding = 'latin1'))
   supermercado <- linea[1]
@@ -29,6 +30,7 @@ for (file in files) {
   tarjetabancaria <- linea[indice + 7]
 }
 
+#Creamos un data frame con los datos asignados
 datos <- data.frame(
   Supermercado <- supermercado
   #Seguir asignación de datos...
