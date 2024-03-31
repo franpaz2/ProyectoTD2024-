@@ -32,8 +32,15 @@ for (file in files) {
 
 #Creamos un data frame con los datos asignados
 datos <- data.frame(
-  Supermercado <- supermercado
-  #Seguir asignación de datos...
+  Supermercado <- supermercado,
+  Dirección <- direccion,
+  Ciudad <- ciudad,
+  Teléfono <- telefono,
+  Fecha <- fecha,
+  Factura <- factura,
+  Productos <- productos, #Falta distinguir entre los distintos productos porque tienen distintos formatos
+  Precio <- precio,
+  #Falta asignar el IVA
 )
 ```
  
