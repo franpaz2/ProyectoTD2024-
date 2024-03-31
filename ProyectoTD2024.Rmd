@@ -43,6 +43,7 @@ for (file in files) {
     Telefono <- telefono,
     Fecha <- fecha,
     Factura <- factura,
+    #Falta añadir productos, error con el número de columnas (ARREGLAR)
     stringsAsFactors = FALSE
   #Falta asignar el IVA
 )
