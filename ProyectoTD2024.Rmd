@@ -1,7 +1,7 @@
 ---
 title: "ProyectoTD2024"
 output: html_document
-author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez"
+author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes"
 date: "2024-03-30"
 ---
 
