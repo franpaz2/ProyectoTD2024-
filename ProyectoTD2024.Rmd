@@ -1,31 +1,38 @@
 ---
 title: "ProyectoTD2024"
 output: html_document
+author: "Eric Villaescusa, ...Poner nombres"
 date: "2024-03-30"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(readr)
 ```
 
 ```{r}
 #Cargamos los nombres de cada tiket (guardados en la carpeta data)
-data <- list.files(path = "data/", pattern = "\\.txt$", full.names = T)
+files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
 
-# Inicializamos una lista para almacenar los tikets de cada archivo
-tikets <- list()
-
-# Leemos cada archivo y almacenamos los tikets en la lista
-for (archivo in data) {
-  # Extraemos el nombre del archivo del tiket sin la ruta
-  nombre_tiket <- basename(archivo)
-  
-  # Leemos el archivo y lo almacenamos en la lista
-  tiket <- read.delim(archivo, header = TRUE)
-  
-  # Agregamos los tikets a la lista con el nombre del archivo como clave
-  tikets[[nombre_tiket]] <- tiket
+for (file in files) {
+  linea <- read_lines(file, locale = locale(encoding = 'latin1'))
+  supermercado <- linea[1]
+  direccion <- linea[2]
+  ciudad <- linea[3]
+  telefono <- linea[4]
+  fecha <- linea[5]
+  factura <- linea[6]
+  indice <- grep("TOTAL", linea)
+  productos <- linea[8:indice - 1]
+  precio <- linea[indice]
+  #Falta IVA
+  tarjetabancaria <- linea[indice + 7]
 }
+
+datos <- data.frame(
+  Supermercado <- supermercado
+  #Seguir asignación de datos...
+)
 ```
  
 
