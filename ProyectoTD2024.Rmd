@@ -8,6 +8,7 @@ date: "2024-03-30"
 ```{r setup, include=FALSE}
 #Cargamos las librerias necesarias
 knitr::opts_chunk$set(echo = TRUE)
+library(lubridate)
 library(readr)
 library(dplyr)
 library(rlist)
@@ -33,6 +34,7 @@ for (file in files) {
   indicefinal <- grep("TOTAL", linea)
   productos <- linea[indiceinicio + 1:indicefinal - 1]
   #Falta IVA
+  IVA <-linea[indicefinal+2 ]
   tarjetabancaria <- linea[indicefinal + 7]
   
 #Creamos un data frame con los datos asignados
@@ -44,8 +46,9 @@ for (file in files) {
     Fecha <- fecha,
     Factura <- factura,
     #Falta añadir productos, error con el número de columnas (ARREGLAR)
-    stringsAsFactors = FALSE
+    stringsAsFactors = FALSE,
   #Falta asignar el IVA
+    IVA <- IVA
 )
   #Le asigno cada ticket a cada elemento de la lista
   tickets <- list.append(tickets, datos)
@@ -55,8 +58,8 @@ for (file in files) {
 datoscompletos <- data.frame()
 
 #Le añadimos a cada columna del data frame un ticket.
-for (ticket in tickets) {
-  datoscompletos <- rbind(datoscompletos,ticket)
+for (tickets in tickets) {
+  datoscompletos <- rbind(datoscompletos,tickets)
 }
 
 ```
