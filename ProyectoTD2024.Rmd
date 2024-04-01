@@ -71,23 +71,36 @@ for (ticket in tickets) {
 ```
 
 ##INTRODUCCIÓN
-Este proyecto tiene como propósito realizar un análisis detallado de los datos recopilados partiendo de los tickets de compra de Mercadona, recopilados durante el período comprendido entre los años 2023 y 2024 como bien indica en los documentos. Este análisis tiene como finalidad extraer información relevante en base patrones como pueden ser: patrones de compra de los clientes, identificar tendencias de consumo y mejorar la comprensión de los hábitos de compra en la cadena de supermercados entre otros. 
+
+Este proyecto aspira a realizar un análisis exhaustivo de los patrones de compra de los clientes de Mercadona, una destacada cadena de supermercados en España, basándose en los tickets de compra recogidos durante el período 2023-2024. Con el objetivo de identificar tendencias de consumo, determinar los productos más y menos comprados, examinar las preferencias horarias de compra, y evaluar los métodos de pago preferidos por los consumidores, este estudio profundo busca no solo comprender los hábitos de compra en Mercadona, sino también ofrecer recomendaciones estratégicas para optimizar tanto las estrategias de marketing como la gestión de inventario de la cadena. Este enfoque analítico promete revelar insights valiosos para mejorar la experiencia de compra de los clientes y fortalecer la posición de Mercadona en el mercado.
 
 #1.1 Material y Métodos
-Se expplicará y describirá los materiales usados en el análisis. Así como los métodos utilizadas para limpiar, preparar y analizar los datos, como cualquier otro procedimiento llevado a cabo para garantizar la calidad.
+
+Detallaremos los materiales y métodos empleados en el análisis, abordando los desafíos encontrados, como la necesidad de convertir los datos de su forma original ("Raw data") a un formato técnicamente adecuado que permita un análisis eficiente. Este proceso incluirá la codificación manual de ciertas variables y la normalización de formatos, especialmente en lo que respecta a las fechas y métodos de pago, así como el desglose de los porcentajes de IVA para asegurar coherencia a lo largo de todo el análisis.
 
 #1.1.1 Carga de librerías y datos: 
-Primero de todo hemos de descargar las librerías que sean necesarias para la carga y análisis de los datos. En este caso hemos instalado tres: ‘readr’, ‘dplyr’ y ‘rlist’. 
-La librería readr sirve para leer datos de archivos como csv y tsv de manera eficiente. La librería dplyr nos servirá para el procesamiento y manipulación de los datos cargados. Y por último, rlist manipula las listas en R. 
-Se cargan los datos de los tickets que se encuentran en archivos de texto (.txt) en la carpeta ‘data’. 
+Primero hemos de descargar las librerías que sean necesarias para la carga y análisis de los datos. En este caso hemos instalado tres: ‘readr’, ‘dplyr’ y ‘rlist’. 
+La librería readr sirve para leer datos de archivos de manera eficiente. La librería dplyr nos servirá para el procesamiento y manipulación de los datos cargados. Y por último, rlist manipula las listas en R. 
+Los datos utilizados en este análisis provienen exclusivamente de los archivos de texto que contienen los registros detallados de cada compra (tickets), almacenados en la carpeta data de nuestro proyecto. Este conjunto de datos incluye una amplia gama de información, como el detalle de los productos comprados, la fecha y hora de la compra, el método de pago, datos de la sucursal donde se está efectuando la compra, desglose del 'IVA'. A través de la exploración de 12 tickets, se ha conformado un dataframe que nos permite realizar un análisis significativo sobre las tendencias de consumo.
 Para la lectura de datos hemos hecho uso de la primera librería mencionada (readr), iterando con un bucle sobre files (que son los archivos de texto) y creando un dataframe por cada ticket. 
 
+#1.2. Características generales de los datos
 Variables: 
-En nuestro dataframe creado, llamado datos, se le asigna un total de 9 variables: supermercado, direccion, teléfono, fecha, factura, productos, tatjetabancaria e iva. 
+En nuestro dataframe creado, llamado datos, se le asigna un total de 9 variables: supermercado, direccion, ciudad, teléfono, fecha, factura, IVA 10%, IVA 21% e IVA 5%, Sin IVA e IVA. 
+Descripción detallada de las Variables:
+Supermercado: Nombre del supermercado donde se realizó la compra. Este dato es importante para identificar el punto de venta específico dentro de la cadena de supermercados.
+Dirección: Dirección física del supermercado. Proporciona un nivel adicional de detalle geográfico que podría ser útil para análisis relacionados con la ubicación  y asi saber que afluencia de personas tiene cada supermercado y de esta manera considerar el incremento de infraestructura en esa zona, mayor manejo de productos, entre otros.
+Ciudad: La ciudad en la que se encuentra el supermercado. Esta variable permite realizar análisis por ciudad, identificando patrones de consumo provincial y regional.
+Teléfono: Número de teléfono del supermercado. Aunque esta información puede no ser directamente relevante para el análisis de patrones de compra, sirve como dato de contacto.
+Fecha: Fecha y hora en que se realizó la compra. Es fundamental para análisis temporales, como identificar picos de compra durante el día, la semana o tendencias dependiendo de la temporada del año/mes.
+Factura: Número o código de la factura asociada a cada compra. Un identificador único para cada transacción que permite el seguimiento de las compras individuales.
+IVA (10%, 21%, 5%): Porcentajes de IVA aplicados a los productos adquiridos. Estos datos son cruciales para análisis financieros y para entender cómo los diferentes tipos de productos contribuyen a las ventas totales.
+Sin IVA: Monto total de los productos exentos de IVA. Ofrece una visión de la proporción de productos no gravados en las compras.
+IVA: Monto total del IVA cobrado en la compra. Un indicador importante de la carga fiscal de las transacciones.
 Para finalizar, se crea un dataframe vacío para almacenar la información de todos los tickets, es decir, un dataframe que almacene todos los anteriores dataframes, llamado datoscompletos. 
 
 #1.3 Resultados
-Se presentarán los principales logros y resultados obtenidos a partir de la información extraida por el análisis de los archivos. 
+Presentaremos los hallazgos y logros clave derivados del análisis, proporcionando una base sólida para decisiones estratégicas informadas y mejoras operativas.
 
 # Preguntas
 
