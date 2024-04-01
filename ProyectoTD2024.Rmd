@@ -38,8 +38,6 @@ for (file in files) {
   iVA_5_idx <- grep("\\b5%", linea) 
   candidatos_sinIVA_idx <- grep("\\b0,00\\b", linea)
   sinIVA_idx <- candidatos_sinIVA_idx[!grepl("PARKING", linea[candidatos_sinIVA_idx])]
-  IVA <-linea[indicefinal+2 ]
-  tarjetabancaria <- linea[indicefinal + 7]
   iVA_10_value <- ifelse(length(iVA_10_idx) > 0, linea[iVA_10_idx[1]], NA)
   iVA_21_value <- ifelse(length(iVA_21_idx) > 0, linea[iVA_21_idx[1]], NA)
   iVA_5_value <- ifelse(length(iVA_5_idx) > 0, linea[iVA_5_idx[1]], NA)
@@ -56,7 +54,6 @@ for (file in files) {
     Iva_21 = iVA_21_value,
     Iva_5 = iVA_5_value,
     SinIVA = sinIVA_value,
-    IVA <- IVA,
     stringsAsFactors = FALSE
   )
   #Le asigno cada ticket a cada elemento de la lista
