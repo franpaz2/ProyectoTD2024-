@@ -30,8 +30,8 @@ for (file in files) {
   telefono <- linea[4]
   fecha <- linea[5]
   factura <- linea[6]
-  indiceinicio <- grep("DESCRIPCIÓN", linea)
-  indicefinal <- grep("TOTAL", linea)
+  indiceinicio <- grep("DESCRIPCIÓN", linea)[1] 
+  indicefinal <- grep("TOTAL", linea)[1] 
   productos <- linea[indiceinicio + 1:indicefinal - 1]
   iVA_10_idx <- grep("10%", linea)
   iVA_21_idx <- grep("21%", linea)
