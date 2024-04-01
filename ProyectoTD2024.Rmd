@@ -64,8 +64,8 @@ for (file in files) {
 datoscompletos <- data.frame()
 
 #Le añadimos a cada columna del data frame un ticket.
-for (tickets in tickets) {
-  datoscompletos <- rbind(datoscompletos,tickets)
+for (ticket in tickets) {
+  datoscompletos <- rbind(datoscompletos,ticket)
 }
 
 ```
