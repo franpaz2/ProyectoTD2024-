@@ -1,8 +1,11 @@
 ---
 title: "ProyectoTD2024"
-output: html_document
-author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes, Hubert Stolarz"
+author: Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes,
+  Hubert Stolarz
 date: "2024-03-30"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}

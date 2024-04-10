@@ -373,9 +373,9 @@ for (file in files) {
   telefono &lt;- linea[4]
   fecha &lt;- linea[5]
   factura &lt;- linea[6]
-  indiceinicio &lt;- grep(&quot;DESCRIPCIÓN&quot;, linea)[1] 
-  indicefinal &lt;- grep(&quot;TOTAL&quot;, linea)[1] 
-  productos &lt;- linea[indiceinicio + 1:indicefinal - 1]
+  indiceinicio &lt;- grep(&quot;Descripción P. Unit Importe&quot;, linea) 
+  indicefinal &lt;- grep(&quot;SE ADMITEN DEVOLUCIONES CON TICKET&quot;, linea)
+  productos &lt;- linea[(indiceinicio + 2):(indicefinal - 14)]
   iVA_10_idx &lt;- grep(&quot;10%&quot;, linea)
   iVA_21_idx &lt;- grep(&quot;21%&quot;, linea)
   iVA_5_idx &lt;- grep(&quot;\\b5%&quot;, linea) 
@@ -392,6 +392,7 @@ for (file in files) {
     Ciudad = ciudad,
     Telefono = telefono,
     Fecha = fecha,
+    Productos = productos,
     Factura = factura,
     Iva_10 = iVA_10_value,
     Iva_21 = iVA_21_value,
