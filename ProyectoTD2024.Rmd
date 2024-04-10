@@ -34,8 +34,8 @@ for (file in files) {
   fecha <- linea[5]
   factura <- linea[6]
   indiceinicio <- grep("Descripción P. Unit Importe", linea) 
-  indicefinal <- grep("SE ADMITEN DEVOLUCIONES CON TICKET", linea)
-  productos <- linea[(indiceinicio + 2):(indicefinal - 14)]
+  indicefinal <- grep("TOTAL", linea)
+  productos <- linea[(indiceinicio + 2):(indicefinal - 1)]
   iVA_10_idx <- grep("10%", linea)
   iVA_21_idx <- grep("21%", linea)
   iVA_5_idx <- grep("\\b5%", linea) 
