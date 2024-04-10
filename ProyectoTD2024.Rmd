@@ -30,9 +30,9 @@ for (file in files) {
   telefono <- linea[4]
   fecha <- linea[5]
   factura <- linea[6]
-  indiceinicio <- grep("DESCRIPCIÓN", linea)[1] 
-  indicefinal <- grep("TOTAL", linea)[1] 
-  productos <- linea[indiceinicio + 1:indicefinal - 1]
+  indiceinicio <- grep("Descripción P. Unit Importe", linea) 
+  indicefinal <- grep("SE ADMITEN DEVOLUCIONES CON TICKET", linea)
+  productos <- linea[(indiceinicio + 2):(indicefinal - 14)]
   iVA_10_idx <- grep("10%", linea)
   iVA_21_idx <- grep("21%", linea)
   iVA_5_idx <- grep("\\b5%", linea) 
@@ -49,6 +49,7 @@ for (file in files) {
     Ciudad = ciudad,
     Telefono = telefono,
     Fecha = fecha,
+    Productos = productos,
     Factura = factura,
     Iva_10 = iVA_10_value,
     Iva_21 = iVA_21_value,
