@@ -50,6 +50,7 @@ for (file in files) {
   indiceinicio <- grep("Descripción P. Unit Importe", linea) 
   indicefinal <- grep("TOTAL", linea)
   productos <- linea[(indiceinicio + 2):(indicefinal - 1)]
+  productos_fresco <- linea[grep('/kg', linea)]
   iVA_10_idx <- grep("10%", linea)
   iVA_21_idx <- grep("21%", linea)
   iVA_5_idx <- grep("\\b5%", linea) 
