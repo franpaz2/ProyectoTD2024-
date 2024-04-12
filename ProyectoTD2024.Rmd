@@ -11,10 +11,24 @@ output:
 ```{r setup, include=FALSE}
 #Cargamos las librerias necesarias
 knitr::opts_chunk$set(echo = TRUE)
-library(lubridate)
-library(readr)
-library(dplyr)
-library(rlist)
+
+# Especificamos las librerías necesarias en esta lista
+
+packages = c("lubridate","readr","dplyr","rlist")
+
+#Esta función sirve para comprobar que los paquetes estan instalados en la máquina local
+#Si un paquete ya esta instalado lo cargará
+#Si no hay paquetes, instalará y cargará los faltantes.
+package.check <- lapply(packages, FUN = function(x) {
+  if (!require(x, character.only = TRUE)) {
+    install.packages(x, dependencies = TRUE,repos='http://cran.rediris.es')
+  }
+  library(x, character.only = TRUE)
+})
+
+#Verifica que estan cargados.
+search()
+
 ```
 
 ```{r}
