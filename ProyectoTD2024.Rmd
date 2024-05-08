@@ -8,7 +8,7 @@ output:
   html_document: default
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
 #Cargamos las librerias necesarias
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -31,7 +31,7 @@ search()
 
 ```
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 #Cargamos los nombres de cada tiket (guardados en la carpeta data)
 files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
 
