@@ -50,7 +50,7 @@ for (file in files) {
   indiceinicio <- grep("Descripción P. Unit Importe", linea) 
   indicefinal <- grep("TOTAL", linea)
   productos <- linea[(indiceinicio + 2):(indicefinal - 1)]
-  productos_fresco <- linea[grep('/kg', linea)]
+  #productos_fresco <- linea[grep('/kg', linea)]
   iVA_10_idx <- grep("10%", linea)
   iVA_21_idx <- grep("21%", linea)
   iVA_5_idx <- grep("\\b5%", linea) 
@@ -61,19 +61,20 @@ for (file in files) {
   iVA_5_value <- ifelse(length(iVA_5_idx) > 0, linea[iVA_5_idx[1]], NA)
   sinIVA_value <- ifelse(length(sinIVA_idx) > 0, linea[sinIVA_idx[1]], NA)
 #Creamos un data frame con los datos asignados
-  datos <- data.frame(
+  datos <- list(
     Supermercado = supermercado,
     Dirección = direccion,
     Ciudad = ciudad,
     Telefono = telefono,
     Fecha = fecha,
-    Productos = productos,
+    Productos = productos[-grep('/kg', productos)],
     Factura = factura,
     Iva_10 = iVA_10_value,
     Iva_21 = iVA_21_value,
     Iva_5 = iVA_5_value,
     SinIVA = sinIVA_value,
     stringsAsFactors = FALSE
+  
   )
   #Le asigno cada ticket a cada elemento de la lista
   tickets <- list.append(tickets, datos)
@@ -81,11 +82,6 @@ for (file in files) {
 
 #Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
 datoscompletos <- data.frame()
-
-#Le añadimos a cada columna del data frame un ticket.
-for (ticket in tickets) {
-  datoscompletos <- rbind(datoscompletos,ticket)
-}
 
 ```
 
@@ -124,11 +120,85 @@ Presentaremos los hallazgos y logros clave derivados del análisis, proporcionan
 # Preguntas
 
 Ahora que tenemos los tickets cargados correctamente en un data frame, nos planteamos las preguntas que queremos rresponder mediante el análisis exploratorio.
+```{r}
+library(ggplot2)
+```
 
 1.  ¿cuáles son los productos más comprados?
+```{r}
+productos = list()
+    for (ticket in tickets) {
+      productos <- list.append(productos, ticket$Productos)
+    }
+    library(stringr)
+
+    eliminar_numeros <- function(productos) {
+      # Aplicar la función a cada elemento de la lista
+      eliminar_numeros <- lapply(productos, function(x) {
+        # Eliminar el primer número delante de la información
+        x <- str_replace(x, "^[0-9]+", "")
+        # Eliminar el float del final si hay
+        x <- str_replace(x, "[0-9],[0-9]+$", "")
+        return(x)
+      })
+      # Convertir la lista a un vector de caracteres
+      eliminar_numeros <- unlist(eliminar_numeros)
+      return(eliminar_numeros)
+    }
+    productos_filtrado <- eliminar_numeros(productos)
+    
+    # Cargar la biblioteca ggplot2
+    library(ggplot2)
+
+    # Contar la frecuencia de cada producto en la lista
+    frecuencia_productos <- table(productos_filtrado)
+
+    # Convertir la tabla de frecuencias en un data frame
+    df_frecuencias <- as.data.frame(frecuencia_productos)
+    colnames(df_frecuencias) <- c("Producto", "Frecuencia")
+
+    # Ordenar el data frame por frecuencia de mayor a menor
+    df_frecuencias <- df_frecuencias[order(-df_frecuencias$Frecuencia),]
+
+    # Obtener los 20 productos más repetidos
+    top_10_productos <- head(df_frecuencias, 10)
+
+    # Crear el gráfico circular con los 10 productos más vendidos
+    ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
+      geom_bar(stat = "identity") +
+      coord_polar("y", start = 0) +
+      theme_void() +
+      labs(title = "Frecuencia de los 10 productos más vendidos") +
+      scale_fill_manual(values = rainbow(length(top_10_productos$Producto))) + # Colores
+      theme(legend.position = "right") # Posición de la leyenda
+```
 
 2.  ¿A qué hora se realizan más compras?
 
 3.  ¿Qué método de pago es el más popular?
 
 4.  ¿Cuáles son los productos menos comprados?
+```{r}
+# Contar la frecuencia de cada producto en la lista
+frecuencia_productos <- table(productos_filtrado)
+
+# Convertir la tabla de frecuencias en un data frame
+df_frecuencias <- as.data.frame(frecuencia_productos)
+colnames(df_frecuencias) <- c("Producto", "Frecuencia")
+
+# Ordenar el data frame por frecuencia de menor a mayor
+df_frecuencias <- df_frecuencias[order(df_frecuencias$Frecuencia),]
+
+# Obtener los 10 productos menos repetidos
+top_10_productos <- head(df_frecuencias, 10)
+
+# Crear el gráfico circular con los 10 productos menos vendidos
+ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
+  geom_bar(stat = "identity") +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Frecuencia de los 10 productos menos vendidos") +
+  scale_fill_manual(values = rainbow(length(top_10_productos$Producto))) + # Colores
+  theme(legend.position = "right") # Posición de la leyenda
+```
+
