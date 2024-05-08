@@ -1,18 +1,20 @@
 ---
-title: "Proyecto de Análisis Exploratorio de Datos"
-authors: Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Óscar Ibáñez, Adrià Reyes,
+title: "ProyectoTD2024"
+author: Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes,
   Hubert Stolarz
+date: "2024-03-30"
 output:
   pdf_document: default
   html_document: default
 ---
+
 ```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
 #Cargamos las librerias necesarias
 knitr::opts_chunk$set(echo = TRUE)
 
 # Especificamos las librerías necesarias en esta lista
 
-packages = c("lubridate","readr","dplyr","rlist", "stringr")
+packages = c("lubridate","readr","dplyr","rlist")
 
 #Esta función sirve para comprobar que los paquetes estan instalados en la máquina local
 #Si un paquete ya esta instalado lo cargará
@@ -36,45 +38,29 @@ files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
 #Creamos una lista que contendrá cada ticket.
 tickets <- list()
 
-# Crear una lista vacía para almacenar las fechas
-fechas <- vector("list", length = length(files))
-
-# Ajustamos la lectura y transformación de productos
+#Asignamos las líneas de los archivos .txt
 for (file in files) {
-  lineas <- read_lines(file, locale = locale(encoding = 'latin1'))
-  supermercado <- lineas[1]
-  direccion <- lineas[2]
-  ciudad <- lineas[3]
-  telefono <- lineas[4]
-  fecha <- lineas[5]
-  factura <- lineas[6]
-  indiceinicio <- grep("Descripción P. Unit Importe", lineas) 
-  indicefinal <- grep("TOTAL", lineas)
-  productos_brutos <- lineas[(indiceinicio + 2):(indicefinal - 1)]
-  
-# Guardar la fecha en la lista de fechas
-fechas[[file]] <- fecha
-  
-  # Nuevo vector para productos procesados
-  productos <- vector("list", length = length(productos_brutos))
-  i <- 1
-  while (i <= length(productos_brutos)) {
-    linea_actual = productos_brutos[i]
-    if (grepl('/kg', linea_actual)) {
-      # Producto fresco: incluir la siguiente línea para el precio
-      productos[[i]] <- paste(linea_actual, productos_brutos[i + 1], sep = " ")
-      i <- i + 1  # Saltar la siguiente línea ya que se incluyó con el producto fresco
-    } else {
-      # Producto normal
-      productos[[i]] <- linea_actual
-    }
-    i <- i + 1
-  }
-
-  # Convertir la lista de productos a un vector para su procesamiento posterior
-  productos <- unlist(productos)
-
-  # Creación del dataframe como anteriormente
+  linea <- read_lines(file, locale = locale(encoding = 'latin1'))
+  supermercado <- linea[1]
+  direccion <- linea[2]
+  ciudad <- linea[3]
+  telefono <- linea[4]
+  fecha <- linea[5]
+  factura <- linea[6]
+  indiceinicio <- grep("Descripción P. Unit Importe", linea) 
+  indicefinal <- grep("TOTAL", linea)
+  productos <- linea[(indiceinicio + 2):(indicefinal - 1)]
+  productos_fresco <- linea[grep('/kg', linea)]
+  iVA_10_idx <- grep("10%", linea)
+  iVA_21_idx <- grep("21%", linea)
+  iVA_5_idx <- grep("\\b5%", linea) 
+  candidatos_sinIVA_idx <- grep("\\b0,00\\b", linea)
+  sinIVA_idx <- candidatos_sinIVA_idx[!grepl("PARKING", linea[candidatos_sinIVA_idx])]
+  iVA_10_value <- ifelse(length(iVA_10_idx) > 0, linea[iVA_10_idx[1]], NA)
+  iVA_21_value <- ifelse(length(iVA_21_idx) > 0, linea[iVA_21_idx[1]], NA)
+  iVA_5_value <- ifelse(length(iVA_5_idx) > 0, linea[iVA_5_idx[1]], NA)
+  sinIVA_value <- ifelse(length(sinIVA_idx) > 0, linea[sinIVA_idx[1]], NA)
+#Creamos un data frame con los datos asignados
   datos <- data.frame(
     Supermercado = supermercado,
     Dirección = direccion,
@@ -83,38 +69,23 @@ fechas[[file]] <- fecha
     Fecha = fecha,
     Productos = productos,
     Factura = factura,
+    Iva_10 = iVA_10_value,
+    Iva_21 = iVA_21_value,
+    Iva_5 = iVA_5_value,
+    SinIVA = sinIVA_value,
     stringsAsFactors = FALSE
   )
-
-  # Agregar datos al listado de tickets
+  #Le asigno cada ticket a cada elemento de la lista
   tickets <- list.append(tickets, datos)
 }
 
-# Ahora productos es una lista de data frames, cada uno con información de un ticket
-datoscompletos <- do.call(rbind, tickets)
+#Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
+datoscompletos <- data.frame()
 
-# Procesar productos para extraer Cantidad, Producto y Precio
-productos_procesados <- data.frame(
-  Cantidad = as.numeric(sub("([0-9]+).*", "\\1", datoscompletos$Productos)),
-  Producto = sub("^[0-9]+([^0-9.]+)[0-9,\\. ]+$", "\\1", datoscompletos$Productos),
-  Precio = as.numeric(gsub(",", ".", gsub(".* ([0-9,]+)$", "\\1", datoscompletos$Productos))),
-  stringsAsFactors = FALSE
-)
-productos_procesados$Producto <- trimws(productos_procesados$Producto)
-Productos_procesados<-productos_procesados %>%
-  select(-Cantidad)
-productos_frescos <- productos_procesados %>%
-  filter(grepl("/kg", Producto)) %>%
-  mutate(
-    Producto = gsub("^[0-9]+([^0-9.]+)[0-9,\\. ]+$", "\\1", Producto),
-    Peso = gsub(".*?(\\d+,\\d+ kg).*", "\\1", Producto),
-    PrecioPorKg = gsub(".*?(\\d+,\\d+/kg).*", "\\1", Producto),
-    PrecioTotal = as.numeric(gsub(",", ".", gsub(".* ([0-9,]+)", "\\1", Producto))),
-    Producto = trimws(Producto)
-  )
-
-# Data frame de fechas
-Data_Fecha <- data.frame(Fecha = unlist(fechas), row.names = NULL)
+#Le añadimos a cada columna del data frame un ticket.
+for (ticket in tickets) {
+  datoscompletos <- rbind(datoscompletos,ticket)
+}
 
 ```
 
