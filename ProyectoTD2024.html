@@ -358,6 +358,59 @@ Oscar Ibañez, Adrià Reyes, Hubert Stolarz</h4>
 </div>
 
 
+<pre class="r"><code>#Cargamos los nombres de cada tiket (guardados en la carpeta data)
+files &lt;- list.files(path = &quot;./data&quot;, pattern = &quot;.txt&quot;, full.names = TRUE)
+
+#Creamos una lista que contendrá cada ticket.
+tickets &lt;- list()
+
+#Asignamos las líneas de los archivos .txt
+for (file in files) {
+  linea &lt;- read_lines(file, locale = locale(encoding = &#39;latin1&#39;))
+  supermercado &lt;- linea[1]
+  direccion &lt;- linea[2]
+  ciudad &lt;- linea[3]
+  telefono &lt;- linea[4]
+  fecha &lt;- linea[5]
+  factura &lt;- linea[6]
+  indiceinicio &lt;- grep(&quot;Descripción P. Unit Importe&quot;, linea) 
+  indicefinal &lt;- grep(&quot;SE ADMITEN DEVOLUCIONES CON TICKET&quot;, linea)
+  productos &lt;- linea[(indiceinicio + 2):(indicefinal - 14)]
+  iVA_10_idx &lt;- grep(&quot;10%&quot;, linea)
+  iVA_21_idx &lt;- grep(&quot;21%&quot;, linea)
+  iVA_5_idx &lt;- grep(&quot;\\b5%&quot;, linea) 
+  candidatos_sinIVA_idx &lt;- grep(&quot;\\b0,00\\b&quot;, linea)
+  sinIVA_idx &lt;- candidatos_sinIVA_idx[!grepl(&quot;PARKING&quot;, linea[candidatos_sinIVA_idx])]
+  iVA_10_value &lt;- ifelse(length(iVA_10_idx) &gt; 0, linea[iVA_10_idx[1]], NA)
+  iVA_21_value &lt;- ifelse(length(iVA_21_idx) &gt; 0, linea[iVA_21_idx[1]], NA)
+  iVA_5_value &lt;- ifelse(length(iVA_5_idx) &gt; 0, linea[iVA_5_idx[1]], NA)
+  sinIVA_value &lt;- ifelse(length(sinIVA_idx) &gt; 0, linea[sinIVA_idx[1]], NA)
+#Creamos un data frame con los datos asignados
+  datos &lt;- data.frame(
+    Supermercado = supermercado,
+    Dirección = direccion,
+    Ciudad = ciudad,
+    Telefono = telefono,
+    Fecha = fecha,
+    Productos = productos,
+    Factura = factura,
+    Iva_10 = iVA_10_value,
+    Iva_21 = iVA_21_value,
+    Iva_5 = iVA_5_value,
+    SinIVA = sinIVA_value,
+    stringsAsFactors = FALSE
+  )
+  #Le asigno cada ticket a cada elemento de la lista
+  tickets &lt;- list.append(tickets, datos)
+}
+
+#Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
+datoscompletos &lt;- data.frame()
+
+#Le añadimos a cada columna del data frame un ticket.
+for (ticket in tickets) {
+  datoscompletos &lt;- rbind(datoscompletos,ticket)
+}</code></pre>
 <p>##INTRODUCCIÓN</p>
 <p>Este proyecto aspira a realizar un análisis exhaustivo de los
 patrones de compra de los clientes de Mercadona, una destacada cadena de
