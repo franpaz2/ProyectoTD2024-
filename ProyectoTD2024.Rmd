@@ -202,3 +202,4 @@ ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
   theme(legend.position = "right") # Posición de la leyenda
 ```
 
+prueba
