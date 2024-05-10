@@ -201,5 +201,3 @@ ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
   scale_fill_manual(values = rainbow(length(top_10_productos$Producto))) + # Colores
   theme(legend.position = "right") # Posición de la leyenda
 ```
-
-prueba
