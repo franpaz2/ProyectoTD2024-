@@ -1,16 +1,22 @@
 ---
 title: "ProyectoTD2024"
 author: Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes,
-  Hubert Stolarz
+  Hubert Stolarz,Joyce Kemeni
 date: "2024-03-30"
 output:
   pdf_document: default
   html_document: default
 ---
 
-```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+```{r setup, include=FALSE, echo=FALSE, warning=TRUE}
 #Cargamos las librerias necesarias
-knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(pacman)
+p_load(dplyr,lubridate,tidyverse,wordcloud,quanteda, tm,tidytext, ggwordcloud, wordcloud2,ggplot2)
+
+options(width = 100)
+# Opciones generales chunks
+opts_chunk$set(echo=T,message = F, error = F, warning = T, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = './figure/')
 
 # Especificamos las librerías necesarias en esta lista
 
@@ -31,6 +37,8 @@ search()
 
 ```
 
+
+
 ```{r, echo=FALSE, warning=FALSE}
 #Cargamos los nombres de cada tiket (guardados en la carpeta data)
 files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
@@ -46,6 +54,7 @@ for (file in files) {
   ciudad <- linea[3]
   telefono <- linea[4]
   fecha <- linea[5]
+  
   factura <- linea[6]
   indiceinicio <- grep("Descripción P. Unit Importe", linea) 
   indicefinal <- grep("TOTAL", linea)
@@ -81,9 +90,22 @@ for (file in files) {
 }
 
 #Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
-datoscompletos <- data.frame()
+# Combinez les éléments de la liste en un seul dataframe
+datoscompletos <- do.call(rbind, tickets)
+datos_completos<-as.data.frame(datoscompletos)
+
 
 ```
+
+
+
+
+
+
+
+
+
+
 
 ##INTRODUCCIÓN
 
@@ -147,8 +169,7 @@ productos = list()
     }
     productos_filtrado <- eliminar_numeros(productos)
     
-    # Cargar la biblioteca ggplot2
-    library(ggplot2)
+  
 
     # Contar la frecuencia de cada producto en la lista
     frecuencia_productos <- table(productos_filtrado)
@@ -175,7 +196,44 @@ productos = list()
 
 2.  ¿A qué hora se realizan más compras?
 
+```{r}
+# Supprimons la partie " OP: " de la variable Fecha
+datos_completos$Fecha <- sub(" OP:.*", "", datos_completos$Fecha)
+
+
+
+# Extraire uniquement l'heure de la colonne Fecha
+datos_completos$Hora <- format(as.POSIXct(strptime(datos_completos$Fecha, "%d/%m/%Y %H:%M")), format = "%H:%M")
+
+# Affiche des premières lignes pour vérification
+head(datos_completos$Hora)
+
+# Extraire l'heure uniquement
+datos_completos$Hora_solo <- substr(datos_completos$Hora, 1, 2)
+# Contar la frecuencia de cada producto en la lista
+    frecuencia_compras <- table(datos_completos$Hora_solo)
+
+# Convertir la tabla de frecuencias en un data frame
+df_fre_compras <- as.data.frame(frecuencia_compras)
+colnames(df_fre_compras) <- c("Hora", "Frequencia")
+
+# Créer un histogramme des achats par heure
+ggplot(df_fre_compras, aes(x = Hora, y = Frequencia)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  labs(title = "Distribution des achats par heure",
+       x = "Heure",
+       y = "Nombre d'achats")
+```
+
+
+
 3.  ¿Qué método de pago es el más popular?
+```{r}
+
+
+
+```
+
 
 4.  ¿Cuáles son los productos menos comprados?
 ```{r}
