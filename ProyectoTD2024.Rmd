@@ -235,7 +235,7 @@ valores <- 1:length(horas)
 
 # Crear el gráfico de dispersión
 plot(horas_posix, valores, 
-     type = "b",  # Tipo de gráfico: "o" para puntos y líneas
+     type = "n",  # Tipo de gráfico: "n" en blanco
      pch = 16,    # Tipo de marcador para los puntos
      col = "blue",   # Color de los puntos y líneas
      xlab = "Hora",  # Etiqueta del eje x
