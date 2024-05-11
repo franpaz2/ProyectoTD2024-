@@ -242,6 +242,9 @@ plot(horas_posix, valores,
      ylab = "Valor",  # Etiqueta del eje y
      main = "Gráfico de Dispersión con Horas")
 
+# Agregar los puntos sin líneas entre ellos
+points(horas_posix, valores, pch = 16, col = "skyblue")
+
 ```
 
 
