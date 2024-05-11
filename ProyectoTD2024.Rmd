@@ -232,6 +232,16 @@ horas <- c("18:56", "13:41", "19:20", "11:19", "12:47", "17:13", "19:30", "19:56
 horas_posix <- as.POSIXct(horas, format = "%H:%M")
 # Crear valores para el eje y 
 valores <- 1:length(horas)
+
+# Crear el gráfico de dispersión
+plot(horas_posix, valores, 
+     type = "b",  # Tipo de gráfico: "o" para puntos y líneas
+     pch = 16,    # Tipo de marcador para los puntos
+     col = "blue",   # Color de los puntos y líneas
+     xlab = "Hora",  # Etiqueta del eje x
+     ylab = "Valor",  # Etiqueta del eje y
+     main = "Gráfico de Dispersión con Horas")
+
 ```
 
 
