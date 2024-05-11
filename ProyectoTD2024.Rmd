@@ -202,13 +202,13 @@ datos_completos$Fecha <- sub(" OP:.*", "", datos_completos$Fecha)
 
 
 
-# Extraire uniquement l'heure de la colonne Fecha
+# Extraemos la hora en la variable Fecha
 datos_completos$Hora <- format(as.POSIXct(strptime(datos_completos$Fecha, "%d/%m/%Y %H:%M")), format = "%H:%M")
 
-# Affiche des premières lignes pour vérification
+# Miramos las primeras líneas para confirmar que está correctamente estructurado
 head(datos_completos$Hora)
 
-# Extraire l'heure uniquement
+# Escojemos solo la hora del formato de hora y minutos "%H:%M"
 datos_completos$Hora_solo <- substr(datos_completos$Hora, 1, 2)
 # Contar la frecuencia de cada producto en la lista
     frecuencia_compras <- table(datos_completos$Hora_solo)
@@ -220,7 +220,7 @@ colnames(df_fre_compras) <- c("Hora", "Frequencia")
 # Créer un histogramme des achats par heure
 ggplot(df_fre_compras, aes(x = Hora, y = Frequencia)) +
   geom_bar(stat = "identity", fill = "skyblue", color = "black") +
-  labs(title = "Distribution des achats par heure",
+  labs(title = "Distribución de número de compras por hora",
        x = "Hora",
        y = "Número de compras")
 ```
