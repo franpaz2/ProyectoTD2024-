@@ -94,8 +94,7 @@ for (file in files) {
 datoscompletos <- do.call(rbind, tickets)
 datos_completos<-as.data.frame(datoscompletos)
 
-# Pongo los valores de las horas donde se encuentran los puntos y roto las etiquetas del eje x para que sean legibles
-axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
+
 
 ```
 
@@ -244,7 +243,8 @@ plot(horas_posix, valores,
 
 # Agregar los puntos sin líneas entre ellos
 points(horas_posix, valores, pch = 16, col = "skyblue")
-
+# Pongo los valores de las horas donde se encuentran los puntos y roto las etiquetas del eje x para que sean legibles
+axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 ```
 
 
