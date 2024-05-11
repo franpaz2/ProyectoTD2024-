@@ -1,45 +1,128 @@
 ---
 title: "ProyectoTD2024"
-author: Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes,
-  Hubert Stolarz,Joyce Kemeni
-date: "2024-03-30"
+author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes,
+  Hubert Stolarz,Joyce Kemeni"
+date: "30/03/2024"
 output:
-  pdf_document: default
-  html_document: default
+  
+  bookdown::html_document2:
+    echo: true
+    number_sections: true
+    theme: spacelab
+    toc: true
+  html_document:
+    echo: true
+    number_sections: true
+    theme: lumen
+    toc: true
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+always_allow_html: true
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+subtitle: "Tratamiento de Datos. Grado en Ciencia de Datos- UV"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
 ---
 
-```{r setup, include=FALSE, echo=FALSE, warning=TRUE}
-#Cargamos las librerias necesarias
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+
+
+# CONFIGURACIÓN GENERAL
 library(knitr)
-library(pacman)
-p_load(dplyr,lubridate,tidyverse,wordcloud,quanteda, tm,tidytext, ggwordcloud, wordcloud2,ggplot2)
-
 options(width = 100)
-# Opciones generales chunks
-opts_chunk$set(echo=T,message = F, error = F, warning = T, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = './figure/')
 
-# Especificamos las librerías necesarias en esta lista
+# Opciones generales de los chucks. Se utilizarán salvo cambios en el chunk
+opts_chunk$set(echo=F, message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 200, tidy = F, cache.path = '.cache/', fig.path = './figura/')
 
-packages = c("lubridate","readr","dplyr","rlist")
-
-#Esta función sirve para comprobar que los paquetes estan instalados en la máquina local
-#Si un paquete ya esta instalado lo cargará
-#Si no hay paquetes, instalará y cargará los faltantes.
-package.check <- lapply(packages, FUN = function(x) {
-  if (!require(x, character.only = TRUE)) {
-    install.packages(x, dependencies = TRUE,repos='http://cran.rediris.es')
+# Opciones generales de dígitos cuando se incluyen tablas
+#options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
   }
-  library(x, character.only = TRUE)
 })
+#knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+# Introducción
 
-#Verifica que estan cargados.
-search()
+Este proyecto aspira a realizar un análisis exhaustivo de los patrones de compra de los clientes de Mercadona, una destacada cadena de supermercados en España, basándose en los tickets de compra recogidos durante el período 2023-2024.
 
+Con el objetivo de identificar tendencias de consumo, determinar los productos más y menos comprados, examinar las preferencias horarias de compra, y evaluar los métodos de pago preferidos por los consumidores, este estudio profundo busca no solo comprender los hábitos de compra en Mercadona, sino también ofrecer recomendaciones estratégicas para optimizar tanto las estrategias de marketing como la gestión de inventario de la cadena. Este enfoque analítico promete revelar insights valiosos para mejorar la experiencia de compra de los clientes y fortalecer la posición de Mercadona en el mercado.
+
+## Instalación automática de paquetes
+
+Para la preparación de nuestro entorno de trabajo y la manipulación de los datos, hemos instalado y cargado varias librerías relevantes.
+
+dplyr: Esta librería es fundamental para el procesamiento y manipulación de datos. Nos proporciona una amplia gama de funciones para realizar operaciones de filtrado, selección, agrupación y resumen de datos de manera eficiente.
+
+lubridate: Utilizamos esta librería para trabajar con fechas y horas de forma más sencilla. Nos permite realizar operaciones como extracción de partes de fecha, cálculos de diferencia entre fechas, etc.
+
+tidyverse: Tidyverse es un conjunto de paquetes de R diseñados para la ciencia de datos. Incluye varias librerías útiles, como ggplot2 para visualización de datos, tidyr para manipulación de datos en formato "tidy" y purrr para programación funcional.
+
+ggplot2: Es una librería ampliamente utilizada para la visualización de datos en R. Proporciona una sintaxis intuitiva y poderosa para crear una variedad de gráficos estadísticos.
+
+Estas librerías nos brindan las herramientas necesarias para llevar a cabo el análisis exploratorio de los datos de los tickets de supermercado, desde la carga y limpieza de los datos hasta la visualización y extracción de patrones significativos.
+
+```{r, message=FALS}
+# Asegúrate que el paquete "pacman" está instalado
+if (!require("pacman")) install.packages("pacman")
+
+# Paquetes disponibles desde CRAN
+#################################
+pacman::p_load(dplyr,lubridate,tidyverse,wordcloud,quanteda, tm,tidytext, ggwordcloud, wordcloud2,ggplot2)
 ```
 
+## Importación Datos
 
+Para este análisis hemos recibido los datos en forma de tickest con formato pdf que hemos tenido que pasar a txt.
 
-```{r, echo=FALSE, warning=FALSE}
+Descripción detallada de las Variables:
+
+Supermercado: Nombre del supermercado donde se realizó la compra. Este dato es importante para identificar el punto de venta específico dentro de la cadena de supermercados.
+
+Dirección: Dirección física del supermercado. Proporciona un nivel adicional de detalle geográfico que podría ser útil para análisis relacionados con la ubicación y asi saber que afluencia de personas tiene cada supermercado y de esta manera considerar el incremento de infraestructura en esa zona, mayor manejo de productos, entre otros.
+
+Ciudad: La ciudad en la que se encuentra el supermercado. Esta variable permite realizar análisis por ciudad, identificando patrones de consumo provincial y regional.
+
+Teléfono: Número de teléfono del supermercado. Aunque esta información puede no ser directamente relevante para el análisis de patrones de compra, sirve como dato de contacto.
+
+Fecha: Fecha y hora en que se realizó la compra. Es fundamental para análisis temporales, como identificar picos de compra durante el día, la semana o tendencias dependiendo de la temporada del año/mes.
+
+Factura: Número o código de la factura asociada a cada compra. Un identificador único para cada transacción que permite el seguimiento de las compras individuales.
+
+IVA (10%, 21%, 5%): Porcentajes de IVA aplicados a los productos adquiridos. Estos datos son cruciales para análisis financieros y para entender cómo los diferentes tipos de productos contribuyen a las ventas totales. Sin IVA: Monto total de los productos exentos de IVA. Ofrece una visión de la proporción de productos no gravados en las compras. IVA: Monto total del IVA cobrado en la compra. Un indicador importante de la carga fiscal de las transacciones.
+
+Una vez que hemos importado los datos a un dataframe, estamos listos para realizar análisis exploratorio de datos, visualizaciones y responder preguntas específicas sobre los patrones y tendencias presentes en los datos de los tickets de supermercado. Esta etapa generalmente implica la aplicación de diversas técnicas de análisis de datos, como agregación, filtrado, agrupación, y visualización de datos.
+
+```{r importacion, cache = F, echo = F, message = F, warning = F, tidy = F}
 #Cargamos los nombres de cada tiket (guardados en la carpeta data)
 files <- list.files(path = "./data", pattern = ".txt", full.names = TRUE)
 
@@ -94,60 +177,19 @@ for (file in files) {
 datoscompletos <- do.call(rbind, tickets)
 datos_completos<-as.data.frame(datoscompletos)
 
-
-
 ```
-
-
-
-
-
-
-
-
-
-
-
-##INTRODUCCIÓN
-
-Este proyecto aspira a realizar un análisis exhaustivo de los patrones de compra de los clientes de Mercadona, una destacada cadena de supermercados en España, basándose en los tickets de compra recogidos durante el período 2023-2024. Con el objetivo de identificar tendencias de consumo, determinar los productos más y menos comprados, examinar las preferencias horarias de compra, y evaluar los métodos de pago preferidos por los consumidores, este estudio profundo busca no solo comprender los hábitos de compra en Mercadona, sino también ofrecer recomendaciones estratégicas para optimizar tanto las estrategias de marketing como la gestión de inventario de la cadena. Este enfoque analítico promete revelar insights valiosos para mejorar la experiencia de compra de los clientes y fortalecer la posición de Mercadona en el mercado.
-
-#1.1 Material y Métodos
-
-Detallaremos los materiales y métodos empleados en el análisis, abordando los desafíos encontrados, como la necesidad de convertir los datos de su forma original ("Raw data") a un formato técnicamente adecuado que permita un análisis eficiente. Este proceso incluirá la codificación manual de ciertas variables y la normalización de formatos, especialmente en lo que respecta a las fechas y métodos de pago, así como el desglose de los porcentajes de IVA para asegurar coherencia a lo largo de todo el análisis.
-
-#1.1.1 Carga de librerías y datos: 
-Primero hemos de descargar las librerías que sean necesarias para la carga y análisis de los datos. En este caso hemos instalado tres: ‘readr’, ‘dplyr’ y ‘rlist’. 
-La librería readr sirve para leer datos de archivos de manera eficiente. La librería dplyr nos servirá para el procesamiento y manipulación de los datos cargados. Y por último, rlist manipula las listas en R. 
-Los datos utilizados en este análisis provienen exclusivamente de los archivos de texto que contienen los registros detallados de cada compra (tickets), almacenados en la carpeta data de nuestro proyecto. Este conjunto de datos incluye una amplia gama de información, como el detalle de los productos comprados, la fecha y hora de la compra, el método de pago, datos de la sucursal donde se está efectuando la compra, desglose del 'IVA'. A través de la exploración de 12 tickets, se ha conformado un dataframe que nos permite realizar un análisis significativo sobre las tendencias de consumo.
-Para la lectura de datos hemos hecho uso de la primera librería mencionada (readr), iterando con un bucle sobre files (que son los archivos de texto) y creando un dataframe por cada ticket. 
-
-#1.2. Características generales de los datos
-Variables: 
-En nuestro dataframe creado, llamado datos, se le asigna un total de 9 variables: supermercado, direccion, ciudad, teléfono, fecha, factura, IVA 10%, IVA 21% e IVA 5%, Sin IVA e IVA. 
-Descripción detallada de las Variables:
-Supermercado: Nombre del supermercado donde se realizó la compra. Este dato es importante para identificar el punto de venta específico dentro de la cadena de supermercados.
-Dirección: Dirección física del supermercado. Proporciona un nivel adicional de detalle geográfico que podría ser útil para análisis relacionados con la ubicación  y asi saber que afluencia de personas tiene cada supermercado y de esta manera considerar el incremento de infraestructura en esa zona, mayor manejo de productos, entre otros.
-Ciudad: La ciudad en la que se encuentra el supermercado. Esta variable permite realizar análisis por ciudad, identificando patrones de consumo provincial y regional.
-Teléfono: Número de teléfono del supermercado. Aunque esta información puede no ser directamente relevante para el análisis de patrones de compra, sirve como dato de contacto.
-Fecha: Fecha y hora en que se realizó la compra. Es fundamental para análisis temporales, como identificar picos de compra durante el día, la semana o tendencias dependiendo de la temporada del año/mes.
-Factura: Número o código de la factura asociada a cada compra. Un identificador único para cada transacción que permite el seguimiento de las compras individuales.
-IVA (10%, 21%, 5%): Porcentajes de IVA aplicados a los productos adquiridos. Estos datos son cruciales para análisis financieros y para entender cómo los diferentes tipos de productos contribuyen a las ventas totales.
-Sin IVA: Monto total de los productos exentos de IVA. Ofrece una visión de la proporción de productos no gravados en las compras.
-IVA: Monto total del IVA cobrado en la compra. Un indicador importante de la carga fiscal de las transacciones.
-Para finalizar, se crea un dataframe vacío para almacenar la información de todos los tickets, es decir, un dataframe que almacene todos los anteriores dataframes, llamado datoscompletos. 
-
-#1.3 Resultados
-Presentaremos los hallazgos y logros clave derivados del análisis, proporcionando una base sólida para decisiones estratégicas informadas y mejoras operativas.
 
 # Preguntas
 
-Ahora que tenemos los tickets cargados correctamente en un data frame, nos planteamos las preguntas que queremos rresponder mediante el análisis exploratorio.
+Una vez establecemos nuestros datos en forma de data frame, con etiquetas precisas y valores correctamente alineados, nos sumergimos en la exploración de posibles patrones dentro de las instancias y entre las características. En este punto, nos vemos inmersos en un proceso creativo, donde surgen preguntas innovadoras mientras exploramos qué aspectos de los datos capturan nuestra atención con mayor intensidad.Esto nos lleva a plantearnos las siguientes preguntas.
+
+
 ```{r}
 library(ggplot2)
 ```
 
 1.  ¿cuáles son los productos más comprados?
+
 ```{r}
 productos = list()
     for (ticket in tickets) {
@@ -247,9 +289,8 @@ points(horas_posix, valores, pch = 16, col = "skyblue")
 axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 ```
 
-
-
 3.  ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
+
 ```{r}
 #Hacemos 4 data frames para poder organizar los datos del IVA, 
 #por distintos tipos de porcentajes
@@ -298,8 +339,8 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
 
 ```
 
-
 4.  ¿Cuáles son los productos menos comprados?
+
 ```{r}
 # Contar la frecuencia de cada producto en la lista
 frecuencia_productos <- table(productos_filtrado)
