@@ -91,7 +91,7 @@ ggplot2: Es una librería ampliamente utilizada para la visualización de datos 
 
 Estas librerías nos brindan las herramientas necesarias para llevar a cabo el análisis exploratorio de los datos de los tickets de supermercado, desde la carga y limpieza de los datos hasta la visualización y extracción de patrones significativos.
 
-```{r, message=FALS}
+```{r pac, message=FALSE}
 # Asegúrate que el paquete "pacman" está instalado
 if (!require("pacman")) install.packages("pacman")
 
@@ -169,7 +169,7 @@ for (file in files) {
   
   )
   #Le asigno cada ticket a cada elemento de la lista
-  tickets <- list.append(tickets, datos)
+  tickets <- append(tickets, datos)
 }
 
 #Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
