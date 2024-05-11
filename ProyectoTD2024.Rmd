@@ -230,7 +230,8 @@ ggplot(df_fre_compras, aes(x = Hora, y = Frequencia)) +
 horas <- c("18:56", "13:41", "19:20", "11:19", "12:47", "17:13", "19:30", "19:56", "17:15", "20:27", "14:57", "20:12")
 # Convertir las horas a un formato adecuado con POSIXct
 horas_posix <- as.POSIXct(horas, format = "%H:%M")
-
+# Crear valores para el eje y 
+valores <- 1:length(horas)
 ```
 
 
