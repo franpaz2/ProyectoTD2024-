@@ -249,10 +249,52 @@ axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 
 
 
-3.  ¿Qué método de pago es el más popular?
+3.  ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
 ```{r}
+#Hacemos 4 data frames para poder organizar los datos del IVA, 
+#por distintos tipos de porcentajes
 
+IVA_10DF <- datos_completos %>%
+  select(Iva_10) %>%
+  separate(Iva_10, into = c("IVA", "Base", "ImporteIVA"), sep = " ")%>%
+   mutate(Base = as.numeric(gsub(",", ".", Base, fixed = TRUE)),
+          ImporteIVA = as.numeric(gsub(",", ".", ImporteIVA, fixed = TRUE)))
+  
+IVA_5DF<- datos_completos %>%
+  select(Iva_5)%>%
+  separate(Iva_5, into = c("IVA", "Base", "ImporteIVA"), sep = " ")%>%
+   mutate(Base = as.numeric(gsub(",", ".", Base, fixed = TRUE)),
+          ImporteIVA = as.numeric(gsub(",", ".", ImporteIVA, fixed = TRUE)))
+IVA_21DF<- datos_completos %>%
+  select(Iva_21)%>%
+  separate(Iva_21, into = c("IVA", "Base", "ImporteIVA"), sep = " ")%>%
+   mutate(Base = as.numeric(gsub(",", ".", Base, fixed = TRUE)),
+          ImporteIVA = as.numeric(gsub(",", ".", ImporteIVA, fixed = TRUE)))
+IVA_00DF<- datos_completos %>%
+  select(SinIVA)%>%
+  separate(SinIVA, into = c("IVA", "Base", "ImporteIVA"), sep = " ")%>%
+   mutate(Base = as.numeric(gsub(",", ".", Base, fixed = TRUE)),
+          ImporteIVA = as.numeric(gsub(",", ".", ImporteIVA, fixed = TRUE)))
 
+# Calcular el promedio de la columna Base para cada tasa de IVA
+promedio_base_10 <- IVA_10DF %>% summarise(PromedioBase = mean(Base, na.rm = TRUE))
+promedio_base_5 <- IVA_5DF %>% summarise(PromedioBase = mean(Base, na.rm = TRUE))
+promedio_base_21 <- IVA_21DF %>% summarise(PromedioBase = mean(Base, na.rm = TRUE))
+promedio_base_0 <- IVA_00DF %>% summarise(PromedioBase = mean(Base, na.rm = TRUE))
+
+promedios_base <- data.frame(
+  IVA = c("10%", "5%", "21%", "0%"),
+  PromedioBase = c(promedio_base_10$PromedioBase, promedio_base_5$PromedioBase, 
+                   promedio_base_21$PromedioBase, promedio_base_0$PromedioBase)
+)
+library(ggplot2)
+
+ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Comparación de los Promedios de Base Imponible por Tasa de IVA",
+       x = "Tasa de IVA",
+       y = "Promedio de Base Imponible") +
+  theme_minimal()
 
 ```
 
