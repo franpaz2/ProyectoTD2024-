@@ -200,7 +200,7 @@ productos = list()
 # Supprimons la partie " OP: " de la variable Fecha
 datos_completos$Fecha <- sub(" OP:.*", "", datos_completos$Fecha)
 
-
+datos_completos <- datos_completos[!is.na(datos_completos$Hora), ]
 
 # Extraemos la hora en la variable Fecha
 datos_completos$Hora <- format(as.POSIXct(strptime(datos_completos$Fecha, "%d/%m/%Y %H:%M")), format = "%H:%M")
