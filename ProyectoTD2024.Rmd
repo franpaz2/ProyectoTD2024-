@@ -221,8 +221,8 @@ colnames(df_fre_compras) <- c("Hora", "Frequencia")
 ggplot(df_fre_compras, aes(x = Hora, y = Frequencia)) +
   geom_bar(stat = "identity", fill = "skyblue", color = "black") +
   labs(title = "Distribution des achats par heure",
-       x = "Heure",
-       y = "Nombre d'achats")
+       x = "Hora",
+       y = "Número de compras")
 ```
 
 
