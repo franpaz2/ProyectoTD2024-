@@ -217,12 +217,20 @@ datos_completos$Hora_solo <- substr(datos_completos$Hora, 1, 2)
 df_fre_compras <- as.data.frame(frecuencia_compras)
 colnames(df_fre_compras) <- c("Hora", "Frequencia")
 
-# Créer un histogramme des achats par heure
+# Crear un histograma de compras por hora
 ggplot(df_fre_compras, aes(x = Hora, y = Frequencia)) +
   geom_bar(stat = "identity", fill = "skyblue", color = "black") +
   labs(title = "Distribución de número de compras por hora",
        x = "Hora",
        y = "Número de compras")
+
+# Gráfico de dispersión de compras por hora
+
+# Crear un vector de horas con los valores de la columna Hora
+horas <- c("18:56", "13:41", "19:20", "11:19", "12:47", "17:13", "19:30", "19:56", "17:15", "20:27", "14:57", "20:12")
+# Convertir las horas a un formato adecuado con POSIXct
+horas_posix <- as.POSIXct(horas, format = "%H:%M")
+
 ```
 
 
