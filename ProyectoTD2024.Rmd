@@ -262,7 +262,13 @@ El pan de pueblo, como uno de los productos más comprados, sugiere una preferen
 
 En conjunto, estos hallazgos subrayan la importancia de entender las preferencias y tendencias de compra de los clientes para adaptar la oferta de productos y mejorar la experiencia de compra en el supermercado. Además, proporcionan insights valiosos para estrategias de marketing, promoción y gestión de inventario que podrían ayudar a aumentar las ventas y la satisfacción del cliente.
 
-2.  ¿A qué hora se realizan más compras?
+## ¿A qué hora se realizan más compras?
+
+Esta pregunta es fundamental en el análisis de datos de un supermercado por varias razones. En primer lugar, entender los patrones de compra horaria proporciona información valiosa sobre el comportamiento del consumidor. Conocer las horas pico de actividad en el supermercado permite a los gerentes y propietarios optimizar la distribución de personal y recursos durante esos períodos, asegurando así una experiencia de compra más fluida y satisfactoria para los clientes.
+
+Además, comprender los horarios de mayor afluencia también es crucial para la planificación del inventario y la gestión de la cadena de suministro. Saber cuándo se esperan más compras ayuda a los minoristas a ajustar sus niveles de stock para satisfacer la demanda esperada y evitar escaseces o excedentes que puedan afectar negativamente a las ventas y la rentabilidad.
+
+Aparte, también nos puede servir para ajustar el número de personal que necesitamos en un determinado momento.
 
 ```{r}
 # Supprimons la partie " OP: " de la variable Fecha
@@ -313,8 +319,17 @@ points(horas_posix, valores, pch = 16, col = "skyblue")
 # Pongo los valores de las horas donde se encuentran los puntos y roto las etiquetas del eje x para que sean legibles
 axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 ```
+Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
 
-3.  ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
+Al aumentar el personal durante las horas pico, podemos garantizar un servicio más ágil y personalizado, lo que contribuye a reducir los tiempos de espera en las cajas y mejora la atención al cliente. Esto no solo incrementa la satisfacción del cliente, sino que también puede influir en la fidelización y recompra.
+
+Además, ajustar los recursos humanos según la demanda también puede mejorar la gestión del inventario y la reposición de productos. Mantener las estanterías abastecidas y ordenadas durante los períodos de mayor afluencia ayuda a garantizar que los clientes encuentren lo que necesitan rápidamente, lo que puede aumentar las ventas y minimizar la pérdida de oportunidades de venta debido a productos agotados.
+
+Por otro lado, esta información también puede ser útil para optimizar las estrategias de marketing y promoción. Al dirigir campañas publicitarias o promociones especiales específicamente durante estas horas de alto tráfico, podemos maximizar su impacto y efectividad, ya que llegarán a un mayor número de clientes potenciales.
+
+En resumen, identificar las horas de mayor afluencia nos brinda la oportunidad de tomar medidas proactivas para mejorar la experiencia del cliente, aumentar la eficiencia operativa y optimizar las estrategias comerciales. Estas acciones no solo benefician al supermercado en términos de rentabilidad y competitividad, sino que también generan una percepción positiva entre los clientes, fortaleciendo así su relación con la marca.
+
+## ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
 
 ```{r}
 #Hacemos 4 data frames para poder organizar los datos del IVA, 
@@ -364,7 +379,7 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
 
 ```
 
-4.  ¿Cuáles son los productos menos comprados?
+## ¿Cuáles son los productos menos comprados?
 
 ```{r}
 # Contar la frecuencia de cada producto en la lista
