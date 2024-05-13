@@ -92,6 +92,10 @@ ggplot2: Es una librería ampliamente utilizada para la visualización de datos 
 Estas librerías nos brindan las herramientas necesarias para llevar a cabo el análisis exploratorio de los datos de los tickets de supermercado, desde la carga y limpieza de los datos hasta la visualización y extracción de patrones significativos.
 
 ```{r pac, message=FALSE}
+# Borramos todo
+rm(list = ls())
+
+
 # Asegúrate que el paquete "pacman" está instalado
 if (!require("pacman")) install.packages("pacman")
 
