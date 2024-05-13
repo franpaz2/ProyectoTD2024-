@@ -97,7 +97,7 @@ if (!require("pacman")) install.packages("pacman")
 
 # Paquetes disponibles desde CRAN
 #################################
-pacman::p_load(dplyr,lubridate,tidyverse,wordcloud,quanteda, tm,tidytext, ggwordcloud, wordcloud2,ggplot2)
+pacman::p_load(dplyr,lubridate,tidyverse,wordcloud,quanteda, tm,tidytext, ggwordcloud, wordcloud2,ggplot2,rlist,readr)
 ```
 
 ## Importación Datos
@@ -176,6 +176,7 @@ for (file in files) {
 # Combinez les éléments de la liste en un seul dataframe
 datoscompletos <- do.call(rbind, tickets)
 datos_completos<-as.data.frame(datoscompletos)
+datos_completos <- t(datos_completos)
 
 ```
 
