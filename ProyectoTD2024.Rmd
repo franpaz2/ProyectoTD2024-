@@ -354,19 +354,6 @@ frecuencia_productos <- table(productos_filtrado)
 df_frecuencias <- as.data.frame(frecuencia_productos)
 colnames(df_frecuencias) <- c("Producto", "Frecuencia")
 
-
-df_frec_prod <- df_frecuencias%>%
-  mutate(Producto = tolower(Producto))%>%
- 
-  mutate(Producto = gsub("-", " ", Producto))%>%
-  mutate(Producto = gsub("[0-9]", "", Producto))%>%
-  mutate(Producto = gsub(",", "", Producto))%>%
-  mutate(Producto = gsub("\\s+", " ", Producto))%>%
-  mutate(Producto = str_trim(Producto))
-
-df_frec_prod <- df_frec_prod%>%
-  group_by(Producto)%>%
-  summarise(count=n())
 # Ordenar el data frame por frecuencia de menor a mayor
 df_frecuencias <- df_frecuencias[order(df_frecuencias$Frecuencia),]
 
@@ -374,11 +361,12 @@ df_frecuencias <- df_frecuencias[order(df_frecuencias$Frecuencia),]
 top_10_productos <- head(df_frecuencias, 10)
 
 # Crear el gráfico circular con los 10 productos menos vendidos
-ggplot(top_10_productos, aes(x = "", y = count, fill = Producto)) +
-  geom_bar(stat = "identity") +
+ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
+  geom_col(color = "white", size = 0.7) +
   coord_polar("y", start = 0) +
   theme_void() +
-  labs(title = "Frecuencia de los 10 productos menos vendidos") +
+  labs(title = "  Frecuencia de los 10 productos menos vendidos") +
   scale_fill_manual(values = rainbow(length(top_10_productos$Producto))) + # Colores
-  theme(legend.position = "right") # Posición de la leyenda
+  theme(legend.position = "right", 
+        plot.background = element_rect(fill = "#ebf2ff"))
 ```
