@@ -193,7 +193,7 @@ library(ggplot2)
 ```{r}
 productos = list()
     for (ticket in tickets) {
-      productos <- list.append(productos, ticket$Productos)
+      productos <- append(productos, tickets$Productos)
     }
     library(stringr)
 
