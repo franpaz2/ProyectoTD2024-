@@ -1,15 +1,14 @@
 ---
 title: "ProyectoTD2024"
-author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes,
-  Hubert Stolarz,Joyce Kemeni"
+author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez,
+Adrià Reyes, Hubert Stolarz,Joyce Kemeni"
 date: "30/03/2024"
 output:
   
-  bookdown::html_document2:
-    echo: true
-    number_sections: true
-    theme: spacelab
+  bookdown::pdf_document2:
     toc: true
+    toc_depth: 3
+    number_sections: true
   html_document:
     echo: true
     number_sections: true
@@ -23,10 +22,11 @@ output:
     toc: true
     toc_depth: 3
     number_sections: true
-  bookdown::pdf_document2:
-    toc: true
-    toc_depth: 3
+  bookdown::html_document2:
+    echo: true
     number_sections: true
+    theme: spacelab
+    toc: true
 always_allow_html: true
 params:
   lang: ES
@@ -71,6 +71,14 @@ knit_hooks$set(inline = function(x) {
 })
 #knit_hooks$set(plot = knitr:::hook_plot_html)
 ```
+# ABSTRACT
+
+Los patrones de compra en la cadena de supermercados Mercadona en España se investigan en este proyecto a través de análisis de tickets de compra realizados entre 2023 y 2024. Se automatizó la preparación de datos y se utilizaron librerías especializadas para la manipulación y visualización de datos, como dplyr, lubridate, tidyverse y ggplot2, utilizando el entorno de programación R. 
+
+El objetivo del estudio es determinar las tendencias de consumo, los productos preferidos y las fechas de compra, así como evaluar los métodos de pago.
+
+El código R inicial establece un flujo de trabajo limpio y centrado en la visualización eliminando mensajes innecesarios y automatizando el redondeo de resultados numéricos. Los datos se extraen de archivos PDF convertidos a texto, que están estructurados en un dataframe con variables detalladas como la ubicación del supermercado, la fecha y hora de compra y los detalles fiscales.Después de eso, se realiza un análisis exploratorio para identificar los productos más comprados y examinar otras métricas relevantes. Las imágenes ayudan a comprender los patrones de consumo y mejoran el análisis de los datos. Este método no solo ofrece una comprensión detallada de las preferencias de los clientes de Mercadona, sino que también sugiere métodos para optimizar la publicidad y la atención al cliente.
+
 # Introducción
 
 Este proyecto aspira a realizar un análisis exhaustivo de los patrones de compra de los clientes de Mercadona, una destacada cadena de supermercados en España, basándose en los tickets de compra recogidos durante el período 2023-2024.
