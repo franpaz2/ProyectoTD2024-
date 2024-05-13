@@ -169,14 +169,13 @@ for (file in files) {
   
   )
   #Le asigno cada ticket a cada elemento de la lista
-  tickets <- append(tickets, datos)
+  tickets <- list.append(tickets, datos)
 }
 
 #Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
 # Combinez les éléments de la liste en un seul dataframe
 datoscompletos <- do.call(rbind, tickets)
 datos_completos<-as.data.frame(datoscompletos)
-datos_completos <- t(datos_completos)
 
 ```
 
