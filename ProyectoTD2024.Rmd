@@ -327,8 +327,6 @@ Además, ajustar los recursos humanos según la demanda también puede mejorar l
 
 Por otro lado, esta información también puede ser útil para optimizar las estrategias de marketing y promoción. Al dirigir campañas publicitarias o promociones especiales específicamente durante estas horas de alto tráfico, podemos maximizar su impacto y efectividad, ya que llegarán a un mayor número de clientes potenciales.
 
-En resumen, identificar las horas de mayor afluencia nos brinda la oportunidad de tomar medidas proactivas para mejorar la experiencia del cliente, aumentar la eficiencia operativa y optimizar las estrategias comerciales. Estas acciones no solo benefician al supermercado en términos de rentabilidad y competitividad, sino que también generan una percepción positiva entre los clientes, fortaleciendo así su relación con la marca.
-
 ## ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
 
 ```{r}
@@ -381,6 +379,10 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
 
 ## ¿Cuáles son los productos menos comprados?
 
+Identificar cuáles son los productos menos comprados en un supermercado es igualmente crucial por varias razones. En primer lugar, ofrece información valiosa sobre los productos que pueden no estar atrayendo la atención de los clientes o que tienen una demanda baja. Esto permite a los supermercados revisar su estrategia de inventario y marketing para impulsar la visibilidad y el interés en estos productos.
+
+Además, el análisis de los productos menos comprados puede ayudar a detectar posibles problemas con la calidad, el precio o la disponibilidad de ciertos productos. Si un artículo específico está constantemente entre los menos vendidos, podría indicar la necesidad de ajustes en su presentación, precio o disponibilidad para mejorar su atractivo y aumentar su demanda.
+
 ```{r}
 # Contar la frecuencia de cada producto en la lista
 frecuencia_productos <- table(productos_filtrado)
@@ -405,8 +407,11 @@ ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
   theme(legend.position = "right", 
         plot.background = element_rect(fill = "#ebf2ff"))
 ```
+Al analizar los datos, se observa que el aceite virgen extra, los huevos grandes y las acelgas son algunos de los productos menos vendidos en el supermercado. Esta información proporciona una oportunidad valiosa para revisar y ajustar las estrategias de marketing y venta en relación con estos productos.
 
-5. ¿Relación productos más vendidos y su precio?
+Es importante considerar si hay aspectos específicos que están afectando la demanda de estos productos, como su precio, presentación o disponibilidad en tienda. Realizar ajustes en estas áreas podría ayudar a aumentar su atractivo para los clientes y, en consecuencia, impulsar las ventas.
+
+## ¿Relación productos más vendidos y su precio?
 
 ```{r}
 get_precios <- function(productos) {
