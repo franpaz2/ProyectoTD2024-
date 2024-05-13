@@ -1,7 +1,6 @@
 ---
 title: "ProyectoTD2024"
-author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez,
-Adrià Reyes, Hubert Stolarz,Joyce Kemeni"
+author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes, Hubert Stolarz,Joyce Ken"
 date: "30/03/2024"
 output:
   
