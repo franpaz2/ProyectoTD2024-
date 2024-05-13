@@ -414,8 +414,6 @@ p <- ggplot(df, aes(x = producto, y = precio, size = frecuencia)) +
   #theme_minimal() +
   #labs(x = "Producto", y = "Precio", size = "Frecuencia")
 
-
-
 p
 ```
 
