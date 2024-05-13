@@ -375,39 +375,6 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
 
 ```
 
-## ¿Cuáles son los productos menos comprados?
-
-Identificar cuáles son los productos menos comprados en un supermercado es igualmente crucial por varias razones. En primer lugar, ofrece información valiosa sobre los productos que pueden no estar atrayendo la atención de los clientes o que tienen una demanda baja. Esto permite a los supermercados revisar su estrategia de inventario y marketing para impulsar la visibilidad y el interés en estos productos.
-
-Además, el análisis de los productos menos comprados puede ayudar a detectar posibles problemas con la calidad, el precio o la disponibilidad de ciertos productos. Si un artículo específico está constantemente entre los menos vendidos, podría indicar la necesidad de ajustes en su presentación, precio o disponibilidad para mejorar su atractivo y aumentar su demanda.
-
-```{r}
-# Contar la frecuencia de cada producto en la lista
-frecuencia_productos <- table(productos_filtrado)
-
-# Convertir la tabla de frecuencias en un data frame
-df_frecuencias <- as.data.frame(frecuencia_productos)
-colnames(df_frecuencias) <- c("Producto", "Frecuencia")
-
-# Ordenar el data frame por frecuencia de menor a mayor
-df_frecuencias <- df_frecuencias[order(df_frecuencias$Frecuencia),]
-
-# Obtener los 10 productos menos repetidos
-top_10_productos <- head(df_frecuencias, 10)
-
-# Crear el gráfico circular con los 10 productos menos vendidos
-ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
-  geom_col(color = "white", size = 0.7) +
-  coord_polar("y", start = 0) +
-  theme_void() +
-  labs(title = "  Frecuencia de los 10 productos menos vendidos") +
-  scale_fill_manual(values = rainbow(length(top_10_productos$Producto))) + # Colores
-  theme(legend.position = "right", 
-        plot.background = element_rect(fill = "#ebf2ff"))
-```
-Al analizar los datos, se observa que el aceite virgen extra, los huevos grandes y las acelgas son algunos de los productos menos vendidos en el supermercado. Esta información proporciona una oportunidad valiosa para revisar y ajustar las estrategias de marketing y venta en relación con estos productos.
-
-Es importante considerar si hay aspectos específicos que están afectando la demanda de estos productos, como su precio, presentación o disponibilidad en tienda. Realizar ajustes en estas áreas podría ayudar a aumentar su atractivo para los clientes y, en consecuencia, impulsar las ventas.
 
 ## ¿Relación productos más vendidos y su precio?
 
@@ -430,28 +397,24 @@ df <- data.frame(producto = nombres_productos, precio = precios)
 
 # Calcular frecuencia de productos y convertir a data frame
 frecuencia_df <- as.data.frame(table(df$producto))
-mas_vendidos <- head(frecuencia_df, 5)
-menos_vendidos <- head(frecuencia_df, 5)
-frecuencia_df <- cbind(mas_vendidos, menos_vendidos)
 colnames(frecuencia_df) <- c("producto", "frecuencia")
+frecuencia_df <- frecuencia_df[order(-frecuencia_df$frecuencia),]
+mas_vendidos <- head(frecuencia_df, 5)
+frecuencia_df <- frecuencia_df[order(frecuencia_df$frecuencia),]
+menos_vendidos <- head(frecuencia_df, 5)
+
+frecuencia_df <- rbind(mas_vendidos, menos_vendidos)
 # Fusionar marcos de datos para tener precios y frecuencias juntos
 df <- merge(df, frecuencia_df, by = "producto")
-
+duplicados <- duplicated(df$producto)
+df <- df[!duplicados,]
 # Gráfico
 library(ggplot2)
-p <- ggplot(df, aes(x = producto, y = precio, size = frecuencia)) + 
-  stat_boxplot(geom = "errorbar",
-                   width = 0.25) +
-  geom_boxplot(fill = "dodgerblue1",
-               colour = "black",
-               alpha = 0.5,
-               outlier.colour = "tomato2")
-#  geom_boxplot(fill = "dodgerblue1", colour = "black", alpha = 0.5, outlier.colour = "tomato2") +
-#  geom_jitter(width = 0.2, color = "grey30") +
- # scale_size_continuous(range = c(3, 8)) +
-  #theme_minimal() +
-  #labs(x = "Producto", y = "Precio", size = "Frecuencia")
-
+p <- ggplot(df, aes(x = producto, y = precio, fill = frecuencia)) + 
+  geom_col()+
+  coord_flip()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  
 p
 ```
 
