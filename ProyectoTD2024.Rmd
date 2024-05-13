@@ -238,12 +238,10 @@ colnames(df_frecuencias) <- c("Producto", "Frecuencia")
 
 # Ordenar el data frame por frecuencia de mayor a menor
 df_frecuencias <- df_frecuencias[order(-df_frecuencias$Frecuencia),]
-
 # Obtener los 20 productos más repetidos
 top_10_productos <- head(df_frecuencias, 10)
-
 # Crear el gráfico circular con los 10 productos más vendidos
-ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
+ggplot(top_10_productos, aes(x = Producto, y = Frecuencia, fill = Producto)) +
   geom_col(color = "white", size = 0.7) +
   coord_polar("y", start = 0) +
   theme_void() +
