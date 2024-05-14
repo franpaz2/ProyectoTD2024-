@@ -294,28 +294,20 @@ ggplot(df_fre_compras, aes(x = Hora, y = Frequencia)) +
        x = "Hora",
        y = "Número de compras")
 
-# Gráfico de dispersión de compras por hora
+# Ordenar por hora
+df_fre_compras <- df_fre_compras[order(df_fre_compras$Hora),]
 
-# Crear un vector de horas con los valores de la columna Hora
-horas <- c("18:56", "13:41", "19:20", "11:19", "12:47", "17:13", "19:30", "19:56", "17:15", "20:27", "14:57", "20:12")
-# Convertir las horas a un formato adecuado con POSIXct
-horas_posix <- as.POSIXct(horas, format = "%H:%M")
-# Crear valores para el eje y 
-valores <- 1:length(horas)
+# Crear un gráfico de líneas de frecuencia de compras por hora
+library(ggplot2)
+ggplot(df_fre_compras, aes(x = Hora, y = Frequencia, group = 1)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "red", size = 3) +
+  labs(title = "Distribución de número de compras por hora",
+       x = "Hora",
+       y = "Número de compras") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
-# Crear el gráfico de dispersión
-plot(horas_posix, valores, 
-     type = "n",  # Tipo de gráfico: "n" en blanco
-     pch = 16,    # Tipo de marcador para los puntos
-     col = "blue",   # Color de los puntos y líneas
-     xlab = "Hora",  # Etiqueta del eje x
-     ylab = "Valor",  # Etiqueta del eje y
-     main = "Gráfico de Dispersión con Horas")
-
-# Agregar los puntos sin líneas entre ellos
-points(horas_posix, valores, pch = 16, col = "skyblue")
-# Pongo los valores de las horas donde se encuentran los puntos y roto las etiquetas del eje x para que sean legibles
-axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 ```
 Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas crítica son entre las 10:00  y las 12:00 , a las 17:00 y sobretodo a las 14:00 del medio día, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
 
@@ -324,6 +316,8 @@ Al aumentar el personal durante las horas pico, podemos garantizar un servicio m
 Por otro lado, esta información también puede ser útil para optimizar las estrategias de marketing y promoción. Al dirigir campañas publicitarias o promociones especiales específicamente durante estas horas de alto tráfico, podemos maximizar su impacto y efectividad, ya que llegarán a un mayor número de clientes potenciales.
 
 ## ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
+
+Tanto los consumidores como las empresas minoristas como Mercadona están muy preocupadas por la estructura del IVA (Impuesto sobre el Valor Añadido) en los alimentos. Este impuesto tiene un impacto directo en los precios finales de los productos, lo que tiene un impacto en el poder adquisitivo de los consumidores y las estrategias de precios de las tiendas. Cada categoría de IVA que se aplica a diversos tipos de productos es un reflejo de una política fiscal que busca equilibrar la recaudación de ingresos y proteger el acceso a bienes esenciales 
 
 ```{r}
 #Hacemos 4 data frames para poder organizar los datos del IVA, 
@@ -372,7 +366,21 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
   theme_minimal()
 
 ```
+Los resultados de una gráfica mostrando la aplicación de estos tipos de IVA de menor a mayor (IVA del 21%, 5% 0%y 10%) subrayan cómo el sistema fiscal busca diferenciar entre los bienes de acuerdo a su esencialidad en la vida cotidiana. Esta diferenciación ayuda a entender la política fiscal del país y la importancia de ajustar los precios y estrategias de mercado en función de estos impuestos, a continuacion se hablará de como se dividen en función de los productos. 
 
+IVA del 0%: Se aplica a productos básicos como la leche, el pan, los huevos, el queso, las frutas, las legumbres, los tubérculos, los cereales, las verduras, las harinas panificables y ciertos aceites. Esta tasa busca no incrementar el costo de los alimentos más esenciales y promover una alimentación básica y accesible para todos.
+
+IVA del 5%: Introducido recientemente, este IVA reducido se aplica a productos como el aceite de oliva en todas sus variedades, los aceites de semillas y las pastas alimenticias como macarrones, fideos y espaguetis. Esta medida puede estar orientada a fomentar el consumo de estos productos mediante una carga fiscal menor.
+
+IVA del 10%: Se aplica a productos alimenticios que no son considerados de primera necesidad pero que son habituales en la cesta de la compra, como ciertos alimentos procesados.
+
+IVA del 21%: Es el tipo general y se aplica a productos considerados menos esenciales, incluyendo muchos productos de higiene personal y limpieza, así como zumos, bebidas refrescantes y alcohólicas. Esta tasa más alta refleja una menor prioridad en términos de necesidad básica.
+
+Para Mercadona, una de las principales cadenas de supermercados en España, la comprensión detallada de las distintas tasas de IVA aplicables a los productos es crucial por varias razones estratégicas y operativas como la estrategia de precios, el conocimiento de las tasas de IVA permite a Mercadona fijar precios competitivos sin comprometer su margen de beneficio.
+
+Además es de gran importancia para la empresa, conocer estos datos para una correcta aplicación de las tasas de IVA es fundamental para cumplir con las obligaciones fiscales. Una mala gestión o error en la aplicación del IVA puede llevar a sanciones legales y problemas financieros. Además, afecta la precisión en la contabilidad y los reportes financieros.
+
+En resumen, la comprensión y gestión adecuada del IVA no solo asegura el cumplimiento normativo de Mercadona, sino que también apoya su estrategia comercial, optimiza la gestión financiera y mejora la relación con los clientes, lo cual es fundamental para su éxito en un mercado competitivo.
 
 ## ¿Relación productos más y menos vendidos y su precio?
 
