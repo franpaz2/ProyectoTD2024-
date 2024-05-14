@@ -431,7 +431,7 @@ Por otro lado, identificamos varios productos que tienen una cantidad media de v
 
 Sin embargo, resulta preocupante observar que algunos productos, como los huevos grandes, los bocadillos, el cierra fácil y el trigo espelta, son los menos vendidos. Estos hallazgos pueden indicar que estos productos no están cumpliendo con las expectativas de los clientes en términos de precio o calidad, lo que podría estar afectando su demanda.
 
-Observamos dos cosas diferente, por una parte parece que los huevos grandes y el trigo de espelta podrían estar sufriendo de una baja frecuencia de compras devido a un precio excesivamente alto. Sin embargo po otro lado, con los bocadillos y el cierre facil el problema no parece tanto de precio sino de demanda e interés de los consumidores.
+Observamos dos cosas diferente, por una parte, parece que los huevos grandes y el trigo de espelta podrían estar sufriendo de una baja frecuencia de compras debido a un precio excesivamente alto. Sin embargo po otro lado, con los bocadillos y el cierre facil el problema no parece tanto de precio sino de demanda e interés de los consumidores.
 
 Con esta información diseñar estrategias específicas para abordar las distintas situaciones identificadas. En el caso de los huevos grandes y el trigo de espelta, donde parece que el precio puede estar afectando negativamente su demanda, podríamos considerar ajustes en los precios para alinearlos mejor con las expectativas de los clientes y mejorar su competitividad en el mercado.
 
