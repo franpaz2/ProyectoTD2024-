@@ -374,7 +374,9 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
 ```
 
 
-## ¿Relación productos más vendidos y su precio?
+## ¿Relación productos más y menos vendidos y su precio?
+
+La pregunta sobre la relación entre los productos más y menos vendidos y su precio es fundamental por varias razones. En primer lugar, nos permite evaluar la percepción de valor de los clientes en relación con los productos ofrecidos. Al comparar los productos más populares con los menos vendidos y sus respectivos precios, podemos identificar si existe una correlación entre la demanda y el precio. Esta información nos ayuda a determinar si los precios actuales están alineados con las expectativas del mercado y si existen oportunidades para ajustar estratégicamente los precios para maximizar las ventas y la rentabilidad.
 
 ```{r}
 get_precios <- function(productos) {
