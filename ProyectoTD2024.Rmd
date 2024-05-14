@@ -436,3 +436,11 @@ Observamos dos cosas diferente, por una parte, parece que los huevos grandes y e
 Con esta información diseñar estrategias específicas para abordar las distintas situaciones identificadas. En el caso de los huevos grandes y el trigo de espelta, donde parece que el precio puede estar afectando negativamente su demanda, podríamos considerar ajustes en los precios para alinearlos mejor con las expectativas de los clientes y mejorar su competitividad en el mercado.
 
 Por otro lado, para los productos como los bocadillos y el cierre fácil, donde el problema parece ser más relacionado con la falta de interés o demanda por parte de los consumidores, podríamos explorar otras estrategias. Esto podría incluir realizar encuestas o estudios de mercado para comprender mejor las preferencias y necesidades de los clientes en relación con estos productos. Con esta información, podríamos ajustar el surtido de productos, mejorar su calidad, desarrollar campañas de marketing específicas o incluso explorar la posibilidad de reemplazar estos productos por otros con mayor demanda y potencial de ventas.
+
+# conclusión
+
+En conclusión, nos damos cuenta de la importancia de los datos para una empresa como Mercadona. Gracias a este análisis exhaustivo de sus tickets. Hemos podido obtener información muy relevante y que sumándole el contexto y el knowhow, hemos convertido en conocimiento con el cual ahora Mercadona podría tomar acción. 
+
+Por ejemplo en relación con la pregunta que hemos visto de las horas a las que más se compra, podemos saber cuando necesitamos más personal trabajando, otro ejemplo muy claro y llamativo es el de los productos más y menos vendidos en relación con el precio que va a permitir a Mercadona ajustar mejor los precios en función de la demanda.
+
+En resumen, este análisis proporciona una base sólida para tomar decisiones estratégicas que impulsen el crecimiento y la competitividad de Mercadona.
