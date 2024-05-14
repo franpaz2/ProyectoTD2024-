@@ -309,7 +309,7 @@ ggplot(df_fre_compras, aes(x = Hora, y = Frequencia, group = 1)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
 ```
-Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas crítica son entre las 10:00  y las 12:00 , a las 17:00 y sobre todo a las 14:00 del medio día, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
+Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas críticas son entre las 10:00  y las 12:00 , a las 17:00 y sobre todo a las 14:00 del mediodía, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
 
 Al aumentar el personal durante las horas pico, podemos garantizar un servicio más ágil y personalizado, lo que contribuye a reducir los tiempos de espera en las cajas y mejora la atención al cliente. Esto no solo incrementa la satisfacción del cliente, sino que también puede influir en la fidelización y recompra.
 
@@ -317,7 +317,7 @@ Por otro lado, esta información también puede ser útil para optimizar las est
 
 ## ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
 
-Tanto los consumidores como las empresas minoristas como Mercadona están muy preocupadas por la estructura del IVA (Impuesto sobre el Valor Añadido) en los alimentos. Este impuesto tiene un impacto directo en los precios finales de los productos, lo que tiene un impacto en el poder adquisitivo de los consumidores y las estrategias de precios de las tiendas. Cada categoría de IVA que se aplica a diversos tipos de productos es un reflejo de una política fiscal que busca equilibrar la recaudación de ingresos y proteger el acceso a bienes esenciales 
+Tanto los consumidores como las empresas minoristas como Mercadona están muy preocupadas por la estructura del IVA (Impuesto sobre el Valor Añadido) en los alimentos. Este impuesto tiene un impacto directo en los precios finales de los productos, lo que tiene un impacto en el poder adquisitivo de los consumidores y las estrategias de precios de las tiendas. Cada categoría de IVA que se aplica a diversos tipos de productos es un reflejo de una política fiscal que busca equilibrar la recaudación de ingresos y proteger el acceso a bienes esenciales. 
 
 ```{r}
 #Hacemos 4 data frames para poder organizar los datos del IVA, 
@@ -366,7 +366,7 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
   theme_minimal()
 
 ```
-Los resultados de una gráfica mostrando la aplicación de estos tipos de IVA de menor a mayor (IVA del 21%, 5% 0%y 10%) subrayan cómo el sistema fiscal busca diferenciar entre los bienes de acuerdo a su esencialidad en la vida cotidiana. Esta diferenciación ayuda a entender la política fiscal del país y la importancia de ajustar los precios y estrategias de mercado en función de estos impuestos, a continuacion se hablará de como se dividen en función de los productos. 
+Los resultados de una gráfica mostrando la aplicación de estos tipos de IVA de menor a mayor (IVA del 21%, 5% 0%y 10%) subrayan cómo el sistema fiscal busca diferenciar entre los bienes de acuerdo a su esencialidad en la vida cotidiana. Esta diferenciación ayuda a entender la política fiscal del país y la importancia de ajustar los precios y estrategias de mercado en función de estos impuestos, a continuación se hablará de cómo se dividen en función de los productos. 
 
 IVA del 0%: Se aplica a productos básicos como la leche, el pan, los huevos, el queso, las frutas, las legumbres, los tubérculos, los cereales, las verduras, las harinas panificables y ciertos aceites. Esta tasa busca no incrementar el costo de los alimentos más esenciales y promover una alimentación básica y accesible para todos.
 
