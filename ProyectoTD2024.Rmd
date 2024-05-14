@@ -317,11 +317,9 @@ points(horas_posix, valores, pch = 16, col = "skyblue")
 # Pongo los valores de las horas donde se encuentran los puntos y roto las etiquetas del eje x para que sean legibles
 axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 ```
-Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
+Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas crítica son entre las 10:00  y las 12:00 , a las 17:00 y sobretodo a las 14:00 del medio día, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
 
 Al aumentar el personal durante las horas pico, podemos garantizar un servicio más ágil y personalizado, lo que contribuye a reducir los tiempos de espera en las cajas y mejora la atención al cliente. Esto no solo incrementa la satisfacción del cliente, sino que también puede influir en la fidelización y recompra.
-
-Además, ajustar los recursos humanos según la demanda también puede mejorar la gestión del inventario y la reposición de productos. Mantener las estanterías abastecidas y ordenadas durante los períodos de mayor afluencia ayuda a garantizar que los clientes encuentren lo que necesitan rápidamente, lo que puede aumentar las ventas y minimizar la pérdida de oportunidades de venta debido a productos agotados.
 
 Por otro lado, esta información también puede ser útil para optimizar las estrategias de marketing y promoción. Al dirigir campañas publicitarias o promociones especiales específicamente durante estas horas de alto tráfico, podemos maximizar su impacto y efectividad, ya que llegarán a un mayor número de clientes potenciales.
 
