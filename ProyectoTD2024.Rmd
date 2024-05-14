@@ -262,7 +262,7 @@ En conjunto, estos hallazgos subrayan la importancia de entender las preferencia
 
 ## ¿A qué hora se realizan más compras?
 
-Esta pregunta es fundamental en el análisis de datos de un supermercado por varias razones. En primer lugar, entender los patrones de compra horaria proporciona información valiosa sobre el comportamiento del consumidor. Conocer las horas pico de actividad en el supermercado permite a los gerentes y propietarios optimizar la distribución de personal y recursos durante esos períodos, asegurando así una experiencia de compra más fluida y satisfactoria para los clientes.
+Esta pregunta es clave en el análisis de datos de un supermercado por varias razones. En primer lugar, entender los patrones de compra horaria proporciona información valiosa sobre el comportamiento del consumidor. Conocer las horas pico de actividad en el supermercado permite a los gerentes y propietarios optimizar la distribución de personal y recursos durante esos períodos, asegurando así una experiencia de compra más fluida y satisfactoria para los clientes.
 
 Además, comprender los horarios de mayor afluencia también es crucial para la planificación del inventario y la gestión de la cadena de suministro. Saber cuándo se esperan más compras ayuda a los minoristas a ajustar sus niveles de stock para satisfacer la demanda esperada y evitar escaseces o excedentes que puedan afectar negativamente a las ventas y la rentabilidad.
 
@@ -309,7 +309,7 @@ ggplot(df_fre_compras, aes(x = Hora, y = Frequencia, group = 1)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
 ```
-Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas crítica son entre las 10:00  y las 12:00 , a las 17:00 y sobretodo a las 14:00 del medio día, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
+Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas crítica son entre las 10:00  y las 12:00 , a las 17:00 y sobre todo a las 14:00 del medio día, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
 
 Al aumentar el personal durante las horas pico, podemos garantizar un servicio más ágil y personalizado, lo que contribuye a reducir los tiempos de espera en las cajas y mejora la atención al cliente. Esto no solo incrementa la satisfacción del cliente, sino que también puede influir en la fidelización y recompra.
 
@@ -378,9 +378,9 @@ IVA del 21%: Es el tipo general y se aplica a productos considerados menos esenc
 
 Para Mercadona, una de las principales cadenas de supermercados en España, la comprensión detallada de las distintas tasas de IVA aplicables a los productos es crucial por varias razones estratégicas y operativas como la estrategia de precios, el conocimiento de las tasas de IVA permite a Mercadona fijar precios competitivos sin comprometer su margen de beneficio.
 
-Además es de gran importancia para la empresa, conocer estos datos para una correcta aplicación de las tasas de IVA es fundamental para cumplir con las obligaciones fiscales. Una mala gestión o error en la aplicación del IVA puede llevar a sanciones legales y problemas financieros. Además, afecta la precisión en la contabilidad y los reportes financieros.
+Además es de gran importancia para la empresa, conocer estos datos para una correcta aplicación de las tasas de IVA es primordial para cumplir con las obligaciones fiscales. Una mala gestión o error en la aplicación del IVA puede llevar a sanciones legales y problemas financieros. Además, afecta la precisión en la contabilidad y los reportes financieros.
 
-En resumen, la comprensión y gestión adecuada del IVA no solo asegura el cumplimiento normativo de Mercadona, sino que también apoya su estrategia comercial, optimiza la gestión financiera y mejora la relación con los clientes, lo cual es fundamental para su éxito en un mercado competitivo.
+En resumen, la comprensión y gestión adecuada del IVA no solo asegura el cumplimiento normativo de Mercadona, sino que también apoya su estrategia comercial, optimiza la gestión financiera y mejora la relación con los clientes, lo cual es esencial para su éxito en un mercado competitivo.
 
 ## ¿Relación productos más y menos vendidos y su precio?
 
