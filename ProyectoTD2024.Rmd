@@ -203,7 +203,7 @@ library(ggplot2)
 
 La pregunta sobre los productos más comprados en un supermercado es fundamental por varias razones. En primer lugar, proporciona información valiosa sobre las preferencias y hábitos de compra de los clientes. Conocer qué productos son los más populares permite a los supermercados adaptar su inventario y estrategias de marketing para satisfacer mejor las necesidades de sus clientes, lo que puede conducir a un aumento de las ventas y la fidelidad del cliente.
 
-Además, el análisis de los productos más comprados puede ayudar a identificar tendencias de consumo y patrones de compra a lo largo del tiempo. Esto puede ser especialmente útil para prever la demanda de ciertos productos, planificar promociones o descuentos, y optimizar la gestión de inventario.
+Adicionalmente, el análisis de los productos más comprados puede ayudar a identificar tendencias de consumo y patrones de compra a lo largo del tiempo. Esto puede ser especialmente útil para prever la demanda de ciertos productos, planificar promociones o descuentos, y optimizar la gestión de inventario.
 
 Otra razón importante para estudiar los productos más comprados es que puede proporcionar información útil para la toma de decisiones estratégicas en cuanto a la colocación de productos en las estanterías y la disposición del espacio en la tienda. Saber qué productos tienen una alta demanda puede influir en la organización del layout del supermercado para mejorar la experiencia de compra del cliente y aumentar las ventas.
 
@@ -258,13 +258,13 @@ Por otro lado, la popularidad de los brotes tiernos podría reflejar una mayor c
 
 El pan de pueblo, como uno de los productos más comprados, sugiere una preferencia por productos de panadería tradicionales y de calidad. Esto podría indicar una demanda de productos horneados frescos y artesanales, lo que podría influir en las decisiones de los supermercados sobre su oferta de pan y productos de panadería.
 
-En conjunto, estos hallazgos subrayan la importancia de entender las preferencias y tendencias de compra de los clientes para adaptar la oferta de productos y mejorar la experiencia de compra en el supermercado. Además, proporcionan insights valiosos para estrategias de marketing, promoción y gestión de inventario que podrían ayudar a aumentar las ventas y la satisfacción del cliente.
+En conjunto, estos hallazgos subrayan la importancia de entender las preferencias y tendencias de compra de los clientes para adaptar la oferta de productos y mejorar la experiencia de compra en el supermercado. De la misma manera, proporcionan insights valiosos para estrategias de marketing, promoción y gestión de inventario que podrían ayudar a aumentar las ventas y la satisfacción del cliente.
 
 ## ¿A qué hora se realizan más compras?
 
 Esta pregunta es clave en el análisis de datos de un supermercado por varias razones. En primer lugar, entender los patrones de compra horaria proporciona información valiosa sobre el comportamiento del consumidor. Conocer las horas pico de actividad en el supermercado permite a los gerentes y propietarios optimizar la distribución de personal y recursos durante esos períodos, asegurando así una experiencia de compra más fluida y satisfactoria para los clientes.
 
-Además, comprender los horarios de mayor afluencia también es crucial para la planificación del inventario y la gestión de la cadena de suministro. Saber cuándo se esperan más compras ayuda a los minoristas a ajustar sus niveles de stock para satisfacer la demanda esperada y evitar escaseces o excedentes que puedan afectar negativamente a las ventas y la rentabilidad.
+A parte, comprender los horarios de mayor afluencia también es crucial para la planificación del inventario y la gestión de la cadena de suministro. Saber cuándo se esperan más compras ayuda a los minoristas a ajustar sus niveles de stock para satisfacer la demanda esperada y evitar escaseces o excedentes que puedan afectar negativamente a las ventas y la rentabilidad.
 
 Aparte, también nos puede servir para ajustar el número de personal que necesitamos en un determinado momento.
 
@@ -378,7 +378,7 @@ IVA del 21%: Es el tipo general y se aplica a productos considerados menos esenc
 
 Para Mercadona, una de las principales cadenas de supermercados en España, la comprensión detallada de las distintas tasas de IVA aplicables a los productos es crucial por varias razones estratégicas y operativas como la estrategia de precios, el conocimiento de las tasas de IVA permite a Mercadona fijar precios competitivos sin comprometer su margen de beneficio.
 
-Además es de gran importancia para la empresa, conocer estos datos para una correcta aplicación de las tasas de IVA es primordial para cumplir con las obligaciones fiscales. Una mala gestión o error en la aplicación del IVA puede llevar a sanciones legales y problemas financieros. Además, afecta la precisión en la contabilidad y los reportes financieros.
+Además, es de gran importancia para la empresa, conocer estos datos para una correcta aplicación de las tasas de IVA es primordial para cumplir con las obligaciones fiscales. Una mala gestión o error en la aplicación del IVA puede llevar a sanciones legales y problemas financieros. Asimismo, afecta la precisión en la contabilidad y los reportes financieros.
 
 En resumen, la comprensión y gestión adecuada del IVA no solo asegura el cumplimiento normativo de Mercadona, sino que también apoya su estrategia comercial, optimiza la gestión financiera y mejora la relación con los clientes, lo cual es esencial para su éxito en un mercado competitivo.
 
