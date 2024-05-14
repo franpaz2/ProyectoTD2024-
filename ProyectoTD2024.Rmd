@@ -417,4 +417,14 @@ p <- ggplot(df, aes(x = producto, y = precio, fill = frecuencia)) +
   
 p
 ```
+Basándonos en los resultados obtenidos, observamos una clara diferencia en la demanda de productos dentro de nuestro supermercado. El queso lonchas de cabra destaca como el producto más vendido, con un precio de 2,94 euros. Este hallazgo sugiere que este producto es altamente popular entre nuestros clientes y que su precio actual puede estar alineado con su valor percibido.
 
+Por otro lado, identificamos varios productos que tienen una cantidad media de ventas, como el queso fresco de cabra, el plátano, el pan de pueblo y los brotes tiernos maxi. Estos productos, aunque no alcanzan el nivel de ventas del queso lonchas de cabra, mantienen una demanda constante, lo que sugiere que tienen un atractivo para la mayoría de clientes. Esto es coherente con el tipo de productos puesto que se tratan de productos de alimentación muy importantes.
+
+Sin embargo, resulta preocupante observar que algunos productos, como los huevos grandes, los bocadillos, el cierra fácil y el trigo espelta, son los menos vendidos. Estos hallazgos pueden indicar que estos productos no están cumpliendo con las expectativas de los clientes en términos de precio o calidad, lo que podría estar afectando su demanda.
+
+Observamos dos cosas diferente, por una parte parece que los huevos grandes y el trigo de espelta podrían estar sufriendo de una baja frecuencia de compras devido a un precio excesivamente alto. Sin embargo po otro lado, con los bocadillos y el cierre facil el problema no parece tanto de precio sino de demanda e interés de los consumidores.
+
+Con esta información diseñar estrategias específicas para abordar las distintas situaciones identificadas. En el caso de los huevos grandes y el trigo de espelta, donde parece que el precio puede estar afectando negativamente su demanda, podríamos considerar ajustes en los precios para alinearlos mejor con las expectativas de los clientes y mejorar su competitividad en el mercado.
+
+Por otro lado, para los productos como los bocadillos y el cierre fácil, donde el problema parece ser más relacionado con la falta de interés o demanda por parte de los consumidores, podríamos explorar otras estrategias. Esto podría incluir realizar encuestas o estudios de mercado para comprender mejor las preferencias y necesidades de los clientes en relación con estos productos. Con esta información, podríamos ajustar el surtido de productos, mejorar su calidad, desarrollar campañas de marketing específicas o incluso explorar la posibilidad de reemplazar estos productos por otros con mayor demanda y potencial de ventas.
