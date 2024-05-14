@@ -1,6 +1,6 @@
 ---
 title: "ProyectoTD2024"
-author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes, Hubert Stolarz,Joyce Ken"
+author: "Eric Villaescusa, Isaac Pazmiño, Alexandra Estela, Oscar Ibañez, Adrià Reyes, Hubert Stolarz,Joyce Kemeni"
 date: "30/03/2024"
 output:
   
@@ -238,12 +238,10 @@ colnames(df_frecuencias) <- c("Producto", "Frecuencia")
 
 # Ordenar el data frame por frecuencia de mayor a menor
 df_frecuencias <- df_frecuencias[order(-df_frecuencias$Frecuencia),]
-
 # Obtener los 20 productos más repetidos
 top_10_productos <- head(df_frecuencias, 10)
-
 # Crear el gráfico circular con los 10 productos más vendidos
-ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
+ggplot(top_10_productos, aes(x = Producto, y = Frecuencia, fill = Producto)) +
   geom_col(color = "white", size = 0.7) +
   coord_polar("y", start = 0) +
   theme_void() +
@@ -262,7 +260,13 @@ El pan de pueblo, como uno de los productos más comprados, sugiere una preferen
 
 En conjunto, estos hallazgos subrayan la importancia de entender las preferencias y tendencias de compra de los clientes para adaptar la oferta de productos y mejorar la experiencia de compra en el supermercado. Además, proporcionan insights valiosos para estrategias de marketing, promoción y gestión de inventario que podrían ayudar a aumentar las ventas y la satisfacción del cliente.
 
-2.  ¿A qué hora se realizan más compras?
+## ¿A qué hora se realizan más compras?
+
+Esta pregunta es fundamental en el análisis de datos de un supermercado por varias razones. En primer lugar, entender los patrones de compra horaria proporciona información valiosa sobre el comportamiento del consumidor. Conocer las horas pico de actividad en el supermercado permite a los gerentes y propietarios optimizar la distribución de personal y recursos durante esos períodos, asegurando así una experiencia de compra más fluida y satisfactoria para los clientes.
+
+Además, comprender los horarios de mayor afluencia también es crucial para la planificación del inventario y la gestión de la cadena de suministro. Saber cuándo se esperan más compras ayuda a los minoristas a ajustar sus niveles de stock para satisfacer la demanda esperada y evitar escaseces o excedentes que puedan afectar negativamente a las ventas y la rentabilidad.
+
+Aparte, también nos puede servir para ajustar el número de personal que necesitamos en un determinado momento.
 
 ```{r}
 # Supprimons la partie " OP: " de la variable Fecha
@@ -313,8 +317,13 @@ points(horas_posix, valores, pch = 16, col = "skyblue")
 # Pongo los valores de las horas donde se encuentran los puntos y roto las etiquetas del eje x para que sean legibles
 axis(1, at = horas_posix, labels = format(horas_posix, "%H:%M"), las = 2)
 ```
+Estas observaciones nos brindan una visión clara de los momentos críticos del día en los que se registra un mayor flujo de clientes en el supermercado. Estas horas crítica son entre las 10:00  y las 12:00 , a las 17:00 y sobretodo a las 14:00 del medio día, que es el momento en el que se observa más personal. Aprovechar esta información estratégicamente puede tener un impacto significativo en la experiencia general del cliente y en la eficiencia operativa del establecimiento.
 
-3.  ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
+Al aumentar el personal durante las horas pico, podemos garantizar un servicio más ágil y personalizado, lo que contribuye a reducir los tiempos de espera en las cajas y mejora la atención al cliente. Esto no solo incrementa la satisfacción del cliente, sino que también puede influir en la fidelización y recompra.
+
+Por otro lado, esta información también puede ser útil para optimizar las estrategias de marketing y promoción. Al dirigir campañas publicitarias o promociones especiales específicamente durante estas horas de alto tráfico, podemos maximizar su impacto y efectividad, ya que llegarán a un mayor número de clientes potenciales.
+
+## ¿Cual es el valor medio de ingresos por cada tipo de porcentaje del Impuesto al Valor Añadido (IVA)?
 
 ```{r}
 #Hacemos 4 data frames para poder organizar los datos del IVA, 
@@ -364,34 +373,10 @@ ggplot(promedios_base, aes(x = IVA, y = PromedioBase, fill = IVA)) +
 
 ```
 
-4.  ¿Cuáles son los productos menos comprados?
 
-```{r}
-# Contar la frecuencia de cada producto en la lista
-frecuencia_productos <- table(productos_filtrado)
+## ¿Relación productos más y menos vendidos y su precio?
 
-# Convertir la tabla de frecuencias en un data frame
-df_frecuencias <- as.data.frame(frecuencia_productos)
-colnames(df_frecuencias) <- c("Producto", "Frecuencia")
-
-# Ordenar el data frame por frecuencia de menor a mayor
-df_frecuencias <- df_frecuencias[order(df_frecuencias$Frecuencia),]
-
-# Obtener los 10 productos menos repetidos
-top_10_productos <- head(df_frecuencias, 10)
-
-# Crear el gráfico circular con los 10 productos menos vendidos
-ggplot(top_10_productos, aes(x = "", y = Frecuencia, fill = Producto)) +
-  geom_col(color = "white", size = 0.7) +
-  coord_polar("y", start = 0) +
-  theme_void() +
-  labs(title = "  Frecuencia de los 10 productos menos vendidos") +
-  scale_fill_manual(values = rainbow(length(top_10_productos$Producto))) + # Colores
-  theme(legend.position = "right", 
-        plot.background = element_rect(fill = "#ebf2ff"))
-```
-
-5. ¿Relación productos más vendidos y su precio?
+La pregunta sobre la relación entre los productos más y menos vendidos y su precio es fundamental por varias razones. En primer lugar, nos permite evaluar la percepción de valor de los clientes en relación con los productos ofrecidos. Al comparar los productos más populares con los menos vendidos y sus respectivos precios, podemos identificar si existe una correlación entre la demanda y el precio. Esta información nos ayuda a determinar si los precios actuales están alineados con las expectativas del mercado y si existen oportunidades para ajustar estratégicamente los precios para maximizar las ventas y la rentabilidad.
 
 ```{r}
 get_precios <- function(productos) {
@@ -412,28 +397,34 @@ df <- data.frame(producto = nombres_productos, precio = precios)
 
 # Calcular frecuencia de productos y convertir a data frame
 frecuencia_df <- as.data.frame(table(df$producto))
-mas_vendidos <- head(frecuencia_df, 5)
-menos_vendidos <- head(frecuencia_df, 5)
-frecuencia_df <- cbind(mas_vendidos, menos_vendidos)
 colnames(frecuencia_df) <- c("producto", "frecuencia")
+frecuencia_df <- frecuencia_df[order(-frecuencia_df$frecuencia),]
+mas_vendidos <- head(frecuencia_df, 5)
+frecuencia_df <- frecuencia_df[order(frecuencia_df$frecuencia),]
+menos_vendidos <- head(frecuencia_df, 5)
+
+frecuencia_df <- rbind(mas_vendidos, menos_vendidos)
 # Fusionar marcos de datos para tener precios y frecuencias juntos
 df <- merge(df, frecuencia_df, by = "producto")
-
+duplicados <- duplicated(df$producto)
+df <- df[!duplicados,]
 # Gráfico
 library(ggplot2)
-p <- ggplot(df, aes(x = producto, y = precio, size = frecuencia)) + 
-  stat_boxplot(geom = "errorbar",
-                   width = 0.25) +
-  geom_boxplot(fill = "dodgerblue1",
-               colour = "black",
-               alpha = 0.5,
-               outlier.colour = "tomato2")
-#  geom_boxplot(fill = "dodgerblue1", colour = "black", alpha = 0.5, outlier.colour = "tomato2") +
-#  geom_jitter(width = 0.2, color = "grey30") +
- # scale_size_continuous(range = c(3, 8)) +
-  #theme_minimal() +
-  #labs(x = "Producto", y = "Precio", size = "Frecuencia")
-
+p <- ggplot(df, aes(x = producto, y = precio, fill = frecuencia)) + 
+  geom_col()+
+  coord_flip()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  
 p
 ```
+Basándonos en los resultados obtenidos, observamos una clara diferencia en la demanda de productos dentro de nuestro supermercado. El queso lonchas de cabra destaca como el producto más vendido, con un precio de 2,94 euros. Este hallazgo sugiere que este producto es altamente popular entre nuestros clientes y que su precio actual puede estar alineado con su valor percibido.
 
+Por otro lado, identificamos varios productos que tienen una cantidad media de ventas, como el queso fresco de cabra, el plátano, el pan de pueblo y los brotes tiernos maxi. Estos productos, aunque no alcanzan el nivel de ventas del queso lonchas de cabra, mantienen una demanda constante, lo que sugiere que tienen un atractivo para la mayoría de clientes. Esto es coherente con el tipo de productos puesto que se tratan de productos de alimentación muy importantes.
+
+Sin embargo, resulta preocupante observar que algunos productos, como los huevos grandes, los bocadillos, el cierra fácil y el trigo espelta, son los menos vendidos. Estos hallazgos pueden indicar que estos productos no están cumpliendo con las expectativas de los clientes en términos de precio o calidad, lo que podría estar afectando su demanda.
+
+Observamos dos cosas diferente, por una parte parece que los huevos grandes y el trigo de espelta podrían estar sufriendo de una baja frecuencia de compras devido a un precio excesivamente alto. Sin embargo po otro lado, con los bocadillos y el cierre facil el problema no parece tanto de precio sino de demanda e interés de los consumidores.
+
+Con esta información diseñar estrategias específicas para abordar las distintas situaciones identificadas. En el caso de los huevos grandes y el trigo de espelta, donde parece que el precio puede estar afectando negativamente su demanda, podríamos considerar ajustes en los precios para alinearlos mejor con las expectativas de los clientes y mejorar su competitividad en el mercado.
+
+Por otro lado, para los productos como los bocadillos y el cierre fácil, donde el problema parece ser más relacionado con la falta de interés o demanda por parte de los consumidores, podríamos explorar otras estrategias. Esto podría incluir realizar encuestas o estudios de mercado para comprender mejor las preferencias y necesidades de los clientes en relación con estos productos. Con esta información, podríamos ajustar el surtido de productos, mejorar su calidad, desarrollar campañas de marketing específicas o incluso explorar la posibilidad de reemplazar estos productos por otros con mayor demanda y potencial de ventas.
