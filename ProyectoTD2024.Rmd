@@ -113,7 +113,7 @@ pacman::p_load(dplyr,lubridate,tidyverse,wordcloud,quanteda, tm,tidytext, ggword
 
 ## Importación Datos
 
-Para este análisis hemos recibido los datos en forma de tickest con formato pdf que hemos tenido que pasar a txt.
+Para este análisis hemos recibido los datos en forma de ticket con formato pdf que hemos tenido que pasar a txt.
 
 Descripción detallada de las Variables:
 
@@ -184,7 +184,7 @@ for (file in files) {
 }
 
 #Creamos un dataframe vacio donde añadiremos la información contenida en cada ticket.
-# Combinez les éléments de la liste en un seul dataframe
+#Combinamos los elementos de la lista en un solo dataframe.
 datoscompletos <- do.call(rbind, tickets)
 datos_completos<-as.data.frame(datoscompletos)
 
